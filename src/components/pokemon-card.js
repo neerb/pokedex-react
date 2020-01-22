@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./pokemonstyles.css";
+import "./pokemoncardstyle.css";
 import Pokedex from "./pokedex";
 
 class PokemonCard extends Component {
@@ -22,12 +22,17 @@ class PokemonCard extends Component {
 
   render() {
     return (
-      <img
-        className="pokemon-image-border"
-        src={this.state.imageUrl}
-        alt={this.state.name}
-        onClick={this.routeToInformation}
-      ></img>
+      <div>
+        <div className="pokemon-image-border">
+          <div className="pokemon-id-number">{this.state.information.id}</div>
+          <img
+            className="pokemon-image"
+            src={this.state.imageUrl}
+            alt={this.state.name}
+            onClick={this.routeToInformation}
+          ></img>
+        </div>
+      </div>
     );
   }
 }

@@ -22,6 +22,7 @@ class Pokedex extends Component {
     this.fetchPokemonData = this.fetchPokemonData.bind(this);
     this.returnMappedImages = this.returnMappedImages.bind(this);
     this.showPokemonResults = this.showPokemonResults.bind(this);
+    this.showPokemonInformation = this.showPokemonInformation.bind(this);
   }
 
   fetchPokemonData(e) {
@@ -70,7 +71,8 @@ class Pokedex extends Component {
               if (result.sprites.front_default != null) {
                 newList.push({
                   name: result.name,
-                  imageUrl: result.sprites.front_default
+                  imageUrl: result.sprites.front_default,
+                  allInformation: result
                 });
               }
 
@@ -90,7 +92,9 @@ class Pokedex extends Component {
     let newSearchList = [];
 
     this.state.pokemonDataList.map(pokemon => {
-      if (pokemon.name.includes(name)) {
+      if (name === "") {
+        newSearchList = this.state.pokemonDataList;
+      } else if (pokemon.name.includes(name)) {
         newSearchList.push(pokemon);
       }
     });
@@ -98,19 +102,21 @@ class Pokedex extends Component {
     this.setState({ searchedPokemonDataList: newSearchList });
   }
 
+  showPokemonInformation() {}
+
   returnMappedImages() {
     return (
-      <div className="row">
-        <div className="column">
-          {this.state.searchedPokemonDataList.map(p => (
-            <PokemonCard
-              imageUrl={p.imageUrl}
-              name={p.name}
-              information={p}
-              key={p.name}
-            ></PokemonCard>
-          ))}
-        </div>
+      <div className="grid">
+        {this.state.searchedPokemonDataList.map(p => (
+          <PokemonCard
+            className="grid-item"
+            imageUrl={p.imageUrl}
+            name={p.name}
+            information={p.allInformation}
+            key={p.name}
+            onClick={this.showPokemonInformation}
+          ></PokemonCard>
+        ))}
       </div>
     );
   }
@@ -148,7 +154,7 @@ class Pokedex extends Component {
     } = this.state;
 
     return (
-      <div>
+      <div className="pokedex">
         <div className="pokemon-information" id="pokemon-information">
           Name: {name}
           <br></br>

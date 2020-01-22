@@ -1,0 +1,99 @@
+.pokemon-image-border {
+  position: relative;
+  border: solid 3px white;
+  margin: 10px;
+  border-radius: 20px;
+  left: 0;
+  top: 0;
+  padding: 0px;
+  max-width: 125px;
+  max-height: 125px;
+  transition: 0.7s, background 0.8s;
+  overflow: hidden;
+  background-color: black;
+  background-image: none;
+  background-size: 0;
+  background-position: center;
+}
+
+.pokemon-image {
+  padding: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.pokemon-image-border:hover {
+  background: url("./images/rotate.gif");
+  border: solid 3px gray;
+  background-color: black;
+  background-size: cover;
+  margin: 10px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 20px;
+  padding: 7px;
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.pokemon-background-image {
+  position: relative;
+  left: 0;
+  top: 0;
+  background-size: 100% 100%;
+  visibility: visible;
+  padding: 0;
+  width: 100%;
+  height: 100px;
+}
+
+.pokemon-background-image:hover {
+  background: url("./images/pokeball-png.png");
+
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: rotate;
+  -moz-animation-duration: 5s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+}
+
+.pokemon-image-border::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  z-index: -1;
+  background: url("./images/pokeball-png.png") 0 0 repeat;
+  transform: rotate(180deg);
+}
+
+@keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.pokemon-id-number {
+  position: absolute;
+  font-size: 1vw;
+  font-family: "Courier New";
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  background-color: white;
+  padding: 3px 10px 0 10px;
+  max-width: 50%;
+  border-radius: 15px 0 5px 0;
+  margin: 0;
+  opacity: 0.75;
+}

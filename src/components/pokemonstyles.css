@@ -4,13 +4,42 @@ body {
   margin: 0;
 }
 
+.pokedex {
+}
+
 .pokedex-division {
   background-color: red;
   text-align: center;
   position: absolute;
-  right: 0px;
-  width: 80%;
-  margin-left: 320px;
+  width: 100%;
+  margin: auto;
+}
+
+.pokemon-information {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  font-size: 50px;
+  color: white;
+  position: fixed;
+  background: black;
+  margin: auto;
+  text-align: left;
+  font-size: 20px;
+  padding: 20px;
+  text-transform: capitalize;
+  overflow: scroll;
+  font-family: "Courier New";
+}
+
+.pokemon-information li {
+  background-color: rgba(29, 106, 154, 0.4);
+  font-size: 20px;
+  margin: 4px;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .information-bar {
@@ -18,7 +47,6 @@ body {
   text-align: center;
   color: white;
   border: dotted white 3px;
-  width: 25%;
   margin: auto;
   height: 100%;
   opacity: 0.9;
@@ -52,66 +80,13 @@ body {
   opacity: 0.75;
 }
 
-.pokemon-information {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 300px;
-  font-size: 50px;
-  color: white;
-  position: fixed;
-  background: black;
-  margin: auto;
-  text-align: left;
-  font-size: 20px;
-  padding: 20px;
-  text-transform: capitalize;
-  overflow: scroll;
-  font-family: "Courier New";
+.grid {
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: repeat(auto-fill, 9%);
 }
 
-.pokemon-information li {
-  background-color: rgba(29, 106, 154, 0.4);
-  font-size: 20px;
-  margin: 4px;
-  padding: 5px;
-  border-radius: 10px;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 4px;
-}
-
-.column {
-  flex: 100%;
-  padding: 0 4px;
-}
-
-.column img {
-  margin-top: 8px;
-  vertical-align: middle;
-}
-
-.pokemon-image-border {
-  border: solid 3px white;
-  margin: 10px;
-  background-color: rgba(0, 0, 0, 1);
-  border-radius: 20px;
-
-  padding: 7px;
-  max-width: 100px;
-  max-height: 100px;
-  transition: 0.7s, background 0.8s;
-}
-
-.img_wrap {
-  margin: 0;
-  max-width: 100px;
-  height: 0;
-  padding: 0;
+.grid-item {
 }
 
 .img_description {
@@ -127,20 +102,4 @@ body {
 
   /* transition effect. not necessary */
   transition: opacity 0.2s, visibility 0.2s;
-}
-
-.pokemon-image-border:hover {
-  border: solid 3px gray;
-  margin: 10px;
-  background: linear-gradient(to right, black, rgb(110, 110, 110));
-  border-radius: 20px;
-
-  padding: 7px;
-  max-width: 100px;
-  max-height: 100px;
-}
-
-.img__wrap:hover .img_description {
-  visibility: visible;
-  opacity: 1;
 }
