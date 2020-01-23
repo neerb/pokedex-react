@@ -41,6 +41,7 @@ class Pokedex extends Component {
 
             this.setState({
               name: result.name,
+              idnum: result.id,
               isLoaded: true,
               pokemonHeight: result.height,
               abilities: result.abilities,
@@ -142,6 +143,7 @@ class Pokedex extends Component {
   render() {
     const {
       name,
+      idnum,
       error,
       isLoaded,
       pokemon,
@@ -158,6 +160,8 @@ class Pokedex extends Component {
         <div className="pokemon-information" id="pokemon-information">
           Name: {name}
           <br></br>
+          Number: {idnum}
+          <br></br>
           Moves:{" "}
           {moves.map(m => (
             <li key={m.move.name}>{m.move.name}</li>
@@ -169,7 +173,7 @@ class Pokedex extends Component {
           ))}
         </div>
 
-        <div className="pokedex-division">
+        <div className="pokedex-division" id="pokedex-division">
           <input
             className="pokemon-search"
             type="text"

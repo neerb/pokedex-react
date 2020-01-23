@@ -5,6 +5,8 @@ body {
 }
 
 .pokedex {
+  background-color: red;
+  color: red;
 }
 
 .pokedex-division {
@@ -13,17 +15,17 @@ body {
   position: absolute;
   width: 100%;
   margin: auto;
+  right: 0;
 }
 
 .pokemon-information {
   visibility: hidden;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   font-size: 50px;
   color: white;
-  position: fixed;
   background: black;
   margin: auto;
   text-align: left;
@@ -32,6 +34,7 @@ body {
   text-transform: capitalize;
   overflow: scroll;
   font-family: "Courier New";
+  width: 25%;
 }
 
 .pokemon-information li {

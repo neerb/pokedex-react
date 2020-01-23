@@ -18,6 +18,12 @@ class PokemonCard extends Component {
 
   routeToInformation() {
     const informationBox = document.getElementById("pokemon-information");
+    const pdex = document.getElementById("pokedex-division");
+
+    informationBox.style.visibility = "visible";
+    informationBox.style.width = "100%";
+
+    pdex.style.width = "75%";
   }
 
   render() {
