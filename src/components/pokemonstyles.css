@@ -19,7 +19,7 @@ body {
 }
 
 .pokemon-information {
-  visibility: hidden;
+  visibility: visible;
   position: fixed;
   top: 0;
   left: 0;
@@ -43,6 +43,7 @@ body {
   margin: 4px;
   padding: 5px;
   border-radius: 10px;
+  color: black;
 }
 
 .information-bar {

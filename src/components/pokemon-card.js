@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./pokemoncardstyle.css";
 import Pokedex from "./pokedex";
+import PokemonInformation from "./pokemoninformation";
 
 class PokemonCard extends Component {
   constructor(props) {
@@ -9,21 +10,30 @@ class PokemonCard extends Component {
       imageUrl: props.imageUrl,
       name: props.name,
       information: props.information,
-      moves: [],
-      abilities: []
+      moves: props.information.moves,
+      abilities: props.information.ablilities
     };
 
     this.routeToInformation = this.routeToInformation.bind(this);
   }
 
   routeToInformation() {
-    const informationBox = document.getElementById("pokemon-information");
+    //const informationBox = document.getElementById("pokemon-information");
     const pdex = document.getElementById("pokedex-division");
 
-    informationBox.style.visibility = "visible";
-    informationBox.style.width = "100%";
+    //informationBox.style.visibility = "visible";
+    //informationBox.style.width = "100%";
 
     pdex.style.width = "75%";
+
+    return (
+      <PokemonInformation
+        name={this.state.name}
+        idnum={this.state.information.id}
+        moves={this.state.moves}
+        abilities={this.state.abilities}
+      ></PokemonInformation>
+    );
   }
 
   render() {

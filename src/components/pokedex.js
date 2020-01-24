@@ -157,22 +157,6 @@ class Pokedex extends Component {
 
     return (
       <div className="pokedex">
-        <div className="pokemon-information" id="pokemon-information">
-          Name: {name}
-          <br></br>
-          Number: {idnum}
-          <br></br>
-          Moves:{" "}
-          {moves.map(m => (
-            <li key={m.move.name}>{m.move.name}</li>
-          ))}
-          <br></br>
-          Abilities:{" "}
-          {abilities.map(abil => (
-            <li key={abil.ability.name}>{abil.ability.name}</li>
-          ))}
-        </div>
-
         <div className="pokedex-division" id="pokedex-division">
           <input
             className="pokemon-search"
