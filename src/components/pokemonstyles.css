@@ -7,6 +7,8 @@ body {
 .pokedex {
   background-color: red;
   color: red;
+  width: 100%;
+  height: 100%;
 }
 
 .pokedex-division {
@@ -65,7 +67,7 @@ body {
   opacity: 0.5;
   width: 40%;
   text-align: center;
-  font-size: auto;
+  font-size: calc(1vw + 1vh);
   margin: 0 20px 20px 20px;
   border-color: black;
   border-radius: 0 0 20px 20px;
@@ -87,7 +89,9 @@ body {
 .grid {
   display: grid;
   grid-gap: 0px;
-  grid-template-columns: repeat(auto-fill, 9%);
+  grid-template-columns: repeat(auto-fill, minmax(100px, 150px));
+  width: 100%;
+  justify-content: center;
 }
 
 .grid-item {

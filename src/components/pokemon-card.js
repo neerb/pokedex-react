@@ -24,7 +24,7 @@ class PokemonCard extends Component {
     //informationBox.style.visibility = "visible";
     //informationBox.style.width = "100%";
 
-    pdex.style.width = "75%";
+    //pdex.style.width = "75%";
 
     return (
       <PokemonInformation
