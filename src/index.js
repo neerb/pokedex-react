@@ -6,7 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import Pokedex from "./components/pokedex";
 
 document.getElementById("root").style.backgroundColor = "red";
-ReactDOM.render(<Pokedex />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
