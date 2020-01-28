@@ -3,7 +3,7 @@ import "./pokemonstyles.css";
 import PokemonCard from "./pokemon-card";
 import PokemonInformation from "./pokemoninformation";
 import ErrorMessage from "./errormessage";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Router, Switch, Route, Link } from "react-router-dom";
 
 class Pokedex extends Component {
   constructor(props) {
@@ -154,7 +154,7 @@ class Pokedex extends Component {
     } = this.state;
 
     return (
-      <Router basename="/pokedex-react">
+      <BrowserRouter basename="/pokedex-react">
         <Route exact path="/">
           <div className="pokedex">
             <div className="pokedex-division" id="pokedex-division">
@@ -175,7 +175,7 @@ class Pokedex extends Component {
         <Route path="/pokeinfo/:name" component={PokemonInformation}></Route>
 
         <Route path="/error" component={ErrorMessage}></Route>
-      </Router>
+      </BrowserRouter>
     );
   }
 }
