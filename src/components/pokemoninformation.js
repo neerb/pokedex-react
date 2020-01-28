@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import "./pokemoninformationstyles.css";
 
+const capitalize = s => {
+  if (typeof s !== "string") return "";
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
 class PokemonInformation extends Component {
   constructor(props) {
     super(props);
@@ -37,10 +42,10 @@ class PokemonInformation extends Component {
           isLoaded: true
         });
 
-        document.title = this.state.name;
+        document.title = capitalize(this.state.name);
       })
       .catch(function() {
-        window.location.href = "/error";
+        window.location.href = "/pokedex-react/error";
       });
   }
 
