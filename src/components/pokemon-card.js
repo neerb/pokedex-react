@@ -18,15 +18,10 @@ class PokemonCard extends Component {
   }
 
   routeToInformation() {
-    //const informationBox = document.getElementById("pokemon-information");
-    const pdex = document.getElementById("pokedex-division");
+    // create a new div element
+    var newDiv = document.createElement("div");
 
-    //informationBox.style.visibility = "visible";
-    //informationBox.style.width = "100%";
-
-    //pdex.style.width = "75%";
-
-    return (
+    const pokeInfo = () => (
       <PokemonInformation
         name={this.state.name}
         idnum={this.state.information.id}
@@ -34,6 +29,35 @@ class PokemonCard extends Component {
         abilities={this.state.abilities}
       ></PokemonInformation>
     );
+
+    return pokeInfo;
+
+    // add the newly created element and its content into the DOM
+    var currentDiv = document.getElementById("root");
+    document.body.insertBefore(pokeInfo, currentDiv);
+
+    /*
+    document.body.createElement(
+      <PokemonInformation
+        name={this.state.name}
+        idnum={this.state.information.id}
+        moves={this.state.moves}
+        abilities={this.state.abilities}
+      ></PokemonInformation>
+    );
+    */
+
+    //const informationBox = document.getElementById("pokemon-information");
+
+    //informationBox.props = { name: "TEST" };
+    //const pdex = document.getElementById("pokedex-division");
+    //informationBox.style.visibility = "visible";
+    //informationBox.style.width = "100%";
+    //pdex.style.width = "75%";
+
+    var btn = document.createElement("BUTTON"); // Create a <button> element
+    btn.innerHTML = "CLICK ME"; // Insert text
+    document.body.appendChild(btn);
   }
 
   render() {
@@ -48,6 +72,7 @@ class PokemonCard extends Component {
             onClick={this.routeToInformation}
           ></img>
         </div>
+        {this.routeToInformation()}
       </div>
     );
   }
