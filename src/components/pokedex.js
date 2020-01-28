@@ -172,9 +172,9 @@ class Pokedex extends Component {
           </div>
         </Route>
 
-        <Route path="/pokeinfo/:name" component={PokemonInformation}></Route>
+        <Route path="pokeinfo/:name" component={PokemonInformation}></Route>
 
-        <Route path="/error" component={ErrorMessage}></Route>
+        <Route path="error" component={ErrorMessage}></Route>
       </Router>
     );
   }
