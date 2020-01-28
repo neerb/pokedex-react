@@ -40,7 +40,7 @@ class PokemonInformation extends Component {
         document.title = this.state.name;
       })
       .catch(function() {
-        window.location.href = "pokedex-react/error";
+        window.location.href = "/error";
       });
   }
 

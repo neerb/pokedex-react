@@ -34,7 +34,6 @@ class PokemonCard extends Component {
           <div className="pokemon-id-number">{this.state.information.id}</div>
 
           <img
-            aref="/pokeinfo"
             className="pokemon-image"
             src={this.state.imageUrl}
             alt={this.state.name}

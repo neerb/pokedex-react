@@ -154,7 +154,7 @@ class Pokedex extends Component {
     } = this.state;
 
     return (
-      <Router>
+      <Router basename="/pokedex-react">
         <Route exact path="/">
           <div className="pokedex">
             <div className="pokedex-division" id="pokedex-division">
@@ -172,12 +172,9 @@ class Pokedex extends Component {
           </div>
         </Route>
 
-        <Route
-          path="pokedex-react/pokeinfo/:name"
-          component={PokemonInformation}
-        ></Route>
+        <Route path="/pokeinfo/:name" component={PokemonInformation}></Route>
 
-        <Route path="pokedex-react/error" component={ErrorMessage}></Route>
+        <Route path="/error" component={ErrorMessage}></Route>
       </Router>
     );
   }
