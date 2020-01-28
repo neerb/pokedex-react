@@ -1,0 +1,88 @@
+.pokemon-information {
+  visibility: visible;
+  height: 100%;
+  width: 80%;
+  font-size: 50px;
+  color: white;
+  background: black;
+  text-align: left;
+  font-size: 20px;
+  padding: 20px;
+  margin: auto;
+  text-transform: capitalize;
+  overflow: auto;
+  font-family: "Courier New";
+}
+
+.bordered-list-item {
+  background-color: rgba(70, 70, 70, 0.85);
+  padding: 5px 5px 5px 10px;
+  border-radius: 5px;
+  border: solid white 3px;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  width: auto;
+  margin: 2px;
+  font-size: 1vw;
+}
+
+.basic-info-box {
+  padding: 30px;
+  width: 25%;
+  background-color: teal;
+  border-radius: 10px;
+}
+
+.moves-box {
+  display: grid;
+  grid-gap: 0px;
+  grid-column: auto;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 150px));
+  justify-content: center;
+  background-color: darkgray;
+  padding: 10px;
+  border-radius: 30px;
+  width: 80%;
+  margin: auto;
+}
+
+.image-box {
+}
+
+.image-box img {
+  border: solid white 2px;
+  border-radius: 30px;
+  margin: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 150px));
+  justify-content: center;
+}
+
+.grid-item {
+  justify-self: center;
+}
+
+.pokeinfo {
+  text-align: center;
+}
+
+.pokemon-name-id {
+  font-size: 5vw;
+  background-color: green;
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.pokemon-name-id h {
+  font-size: 5vw;
+}
+
+.pokemon-name-id h1 {
+  font-size: 2vw;
+  font-weight: normal;
+}

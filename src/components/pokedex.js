@@ -2,10 +2,42 @@ import React, { Component } from "react";
 import "./pokemonstyles.css";
 import PokemonCard from "./pokemon-card";
 import PokemonInformation from "./pokemoninformation";
+import ErrorMessage from "./errormessage";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class Pokedex extends Component {
   constructor(props) {
     super(props);
+
+    fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1000")
+      .then(res => res.json())
+      .then(result => {
+        this.setState({ pokemonList: result.results });
+        //console.log(this.state.pokemonList);
+
+        this.state.pokemonList.map(pokemon => {
+          fetch(pokemon.url)
+            .then(res => res.json())
+            .then(result => {
+              let newList = this.state.pokemonDataList;
+
+              if (result.sprites.front_default != null) {
+                newList.push({
+                  name: result.name,
+                  imageUrl: result.sprites.front_default,
+                  allInformation: result
+                });
+              }
+
+              this.setState({
+                pokemonDataList: newList,
+                searchedPokemonDataList: newList
+              });
+            });
+        });
+      });
+
+    //console.log(this.pokemonDataList);
 
     this.state = {
       name: null,
@@ -20,10 +52,10 @@ class Pokedex extends Component {
       pokemonDataList: [],
       searchedPokemonDataList: []
     };
+
     this.fetchPokemonData = this.fetchPokemonData.bind(this);
     this.returnMappedImages = this.returnMappedImages.bind(this);
     this.showPokemonResults = this.showPokemonResults.bind(this);
-    this.showPokemonInformation = this.showPokemonInformation.bind(this);
   }
 
   fetchPokemonData(e) {
@@ -57,38 +89,6 @@ class Pokedex extends Component {
     }
   }
 
-  componentDidMount(e) {
-    fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1000")
-      .then(res => res.json())
-      .then(result => {
-        this.setState({ pokemonList: result.results });
-        console.log(this.state.pokemonList);
-
-        this.state.pokemonList.map(pokemon => {
-          fetch(pokemon.url)
-            .then(res => res.json())
-            .then(result => {
-              let newList = this.state.pokemonDataList;
-
-              if (result.sprites.front_default != null) {
-                newList.push({
-                  name: result.name,
-                  imageUrl: result.sprites.front_default,
-                  allInformation: result
-                });
-              }
-
-              this.setState({
-                pokemonDataList: newList,
-                searchedPokemonDataList: newList
-              });
-            });
-        });
-      });
-
-    console.log(this.pokemonDataList);
-  }
-
   showPokemonResults() {
     const name = document.getElementById("pokemon-search-bar").value;
     let newSearchList = [];
@@ -104,8 +104,6 @@ class Pokedex extends Component {
     this.setState({ searchedPokemonDataList: newSearchList });
   }
 
-  showPokemonInformation() {}
-
   returnMappedImages() {
     return (
       <div className="grid">
@@ -116,7 +114,6 @@ class Pokedex extends Component {
             name={p.name}
             information={p.allInformation}
             key={p.name}
-            onClick={this.showPokemonInformation}
           ></PokemonCard>
         ))}
       </div>
@@ -157,20 +154,28 @@ class Pokedex extends Component {
     } = this.state;
 
     return (
-      <div className="pokedex">
-        <div className="pokedex-division" id="pokedex-division">
-          <input
-            className="pokemon-search"
-            type="text"
-            onKeyDown={this.fetchPokemonData}
-            onChange={this.showPokemonResults}
-            id="pokemon-search-bar"
-            placeholder="Search for a pokemon..."
-          ></input>
+      <Router>
+        <Route exact path="/">
+          <div className="pokedex">
+            <div className="pokedex-division" id="pokedex-division">
+              <input
+                className="pokemon-search"
+                type="text"
+                onKeyDown={this.fetchPokemonData}
+                onChange={this.showPokemonResults}
+                id="pokemon-search-bar"
+                placeholder="Search for a pokemon..."
+              ></input>
 
-          {this.returnMappedImages()}
-        </div>
-      </div>
+              {this.returnMappedImages()}
+            </div>
+          </div>
+        </Route>
+
+        <Route path="/pokeinfo/:name" component={PokemonInformation}></Route>
+
+        <Route path="/error" component={ErrorMessage}></Route>
+      </Router>
     );
   }
 }

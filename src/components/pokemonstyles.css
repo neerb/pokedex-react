@@ -2,6 +2,7 @@ html,
 body {
   height: 100%;
   margin: 0;
+  background-color: red;
 }
 
 .pokedex {
@@ -21,43 +22,8 @@ body {
   left: 0;
 }
 
-.pokemon-information {
+.pokemon-information-visible {
   visibility: visible;
-  position: fixed;
-  height: 75%;
-  font-size: 50px;
-  color: white;
-  background: black;
-  margin: auto;
-  text-align: left;
-  font-size: 20px;
-  padding: 20px;
-  text-transform: capitalize;
-  overflow: scroll;
-  font-family: "Courier New";
-  width: 25%;
-  top: 0;
-  z-index: 999;
-}
-
-.pokemon-information li {
-  background-color: rgba(29, 106, 154, 0.4);
-  font-size: 20px;
-  margin: 4px;
-  padding: 5px;
-  border-radius: 10px;
-  color: black;
-}
-
-.information-bar {
-  padding: 20px;
-  text-align: center;
-  color: white;
-  border: dotted white 3px;
-  margin: auto;
-  height: 100%;
-  opacity: 0.9;
-  font-size: 20px;
 }
 
 .pokemon-search {

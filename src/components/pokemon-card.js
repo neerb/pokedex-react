@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./pokemoncardstyle.css";
 import Pokedex from "./pokedex";
 import PokemonInformation from "./pokemoninformation";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class PokemonCard extends Component {
   constructor(props) {
@@ -10,69 +11,36 @@ class PokemonCard extends Component {
       imageUrl: props.imageUrl,
       name: props.name,
       information: props.information,
-      moves: props.information.moves,
-      abilities: props.information.ablilities
+      moves: null,
+      abilities: null,
+      clicked: false
     };
 
     this.routeToInformation = this.routeToInformation.bind(this);
+    this.updateClick = this.updateClick.bind(this);
   }
 
-  routeToInformation() {
-    // create a new div element
-    var newDiv = document.createElement("div");
-
-    const pokeInfo = () => (
-      <PokemonInformation
-        name={this.state.name}
-        idnum={this.state.information.id}
-        moves={this.state.moves}
-        abilities={this.state.abilities}
-      ></PokemonInformation>
-    );
-
-    return pokeInfo;
-
-    // add the newly created element and its content into the DOM
-    var currentDiv = document.getElementById("root");
-    document.body.insertBefore(pokeInfo, currentDiv);
-
-    /*
-    document.body.createElement(
-      <PokemonInformation
-        name={this.state.name}
-        idnum={this.state.information.id}
-        moves={this.state.moves}
-        abilities={this.state.abilities}
-      ></PokemonInformation>
-    );
-    */
-
-    //const informationBox = document.getElementById("pokemon-information");
-
-    //informationBox.props = { name: "TEST" };
-    //const pdex = document.getElementById("pokedex-division");
-    //informationBox.style.visibility = "visible";
-    //informationBox.style.width = "100%";
-    //pdex.style.width = "75%";
-
-    var btn = document.createElement("BUTTON"); // Create a <button> element
-    btn.innerHTML = "CLICK ME"; // Insert text
-    document.body.appendChild(btn);
+  updateClick() {
+    this.setState({ clicked: true });
+    window.location.href = "/pokeinfo/" + this.state.name;
   }
+
+  routeToInformation() {}
 
   render() {
     return (
       <div>
         <div className="pokemon-image-border">
           <div className="pokemon-id-number">{this.state.information.id}</div>
+
           <img
+            aref="/pokeinfo"
             className="pokemon-image"
             src={this.state.imageUrl}
             alt={this.state.name}
-            onClick={this.routeToInformation}
+            onClick={this.updateClick}
           ></img>
         </div>
-        {this.routeToInformation()}
       </div>
     );
   }
