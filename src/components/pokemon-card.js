@@ -22,7 +22,7 @@ class PokemonCard extends Component {
 
   updateClick() {
     this.setState({ clicked: true });
-    window.location.href = "s/pokeinfo/" + this.state.name;
+    window.location.href = "/pokeinfo/" + this.state.name;
   }
 
   routeToInformation() {}

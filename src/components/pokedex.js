@@ -3,7 +3,7 @@ import "./pokemonstyles.css";
 import PokemonCard from "./pokemon-card";
 import PokemonInformation from "./pokemoninformation";
 import ErrorMessage from "./errormessage";
-import { BrowserRouter, Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
 class Pokedex extends Component {
   constructor(props) {
