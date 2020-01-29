@@ -154,7 +154,7 @@ class Pokedex extends Component {
     } = this.state;
 
     return (
-      <BrowserRouter basename="/pokedex-react">
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Route exact path="/">
           <div className="pokedex">
             <div className="pokedex-division" id="pokedex-division">
