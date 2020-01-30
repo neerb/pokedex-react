@@ -100,14 +100,33 @@
 }
 
 .previous-btn {
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  vertical-align: middle;
   position: fixed;
   border: none;
   height: 5%;
   width: 75px;
-  background-color: red;
+  background-color: transparent;
   left: 0;
   top: 0;
 }
+
+.prev-btn-img {
+  background-image: url("./images/prev.png");
+}
+
+.next-btn {
+  background-repeat: repeat;
+  position: fixed;
+  border: none;
+  height: 5%;
+  width: 75px;
+  background-color: transparent;
+  right: 0;
+  top: 0;
+}
+
 .padding-top {
   margin: 3%;
 }

@@ -79,10 +79,12 @@ class PokemonInformation extends Component {
         });
 
         document.title = capitalize(this.state.name);
-      })
+      });
+    /*
       .catch(function() {
         window.location.href = "/error";
       });
+      */
 
     this.navToPrevious = this.navToPrevious.bind(this);
     this.navToNext = this.navToNext.bind(this);
@@ -93,7 +95,10 @@ class PokemonInformation extends Component {
       "/pokeinfo/" + (parseInt(this.state.allInformation.id, 10) - 1);
   }
 
-  navToNext() {}
+  navToNext() {
+    window.location.href =
+      "/pokeinfo/" + (parseInt(this.state.allInformation.id, 10) + 1);
+  }
 
   componentDidMount() {}
 
@@ -183,12 +188,20 @@ class PokemonInformation extends Component {
             id="pokemon-information-background"
           >
             <div className="navbar-top">
-              <input
+              <button
                 className="previous-btn"
-                type="button"
-                value="prev"
+                type="submit"
                 onClick={this.navToPrevious}
-              ></input>
+              >
+                <img src="./images/prev.png"></img>
+              </button>
+              <button
+                className="next-btn"
+                type="submit"
+                onClick={this.navToNext}
+              >
+                <img src="images/next.png"></img>
+              </button>
             </div>
             {this.showInformation()}
             <div className="padding-bottom"></div>
