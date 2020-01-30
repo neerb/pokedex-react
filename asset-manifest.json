@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/pokedex-react/static/css/main.1f401077.chunk.css",
-    "main.js": "/pokedex-react/static/js/main.b2c7f92a.chunk.js",
-    "main.js.map": "/pokedex-react/static/js/main.b2c7f92a.chunk.js.map",
+    "main.css": "/pokedex-react/static/css/main.38082511.chunk.css",
+    "main.js": "/pokedex-react/static/js/main.f21be9bd.chunk.js",
+    "main.js.map": "/pokedex-react/static/js/main.f21be9bd.chunk.js.map",
     "runtime-main.js": "/pokedex-react/static/js/runtime-main.9f02b66c.js",
     "runtime-main.js.map": "/pokedex-react/static/js/runtime-main.9f02b66c.js.map",
-    "static/js/2.df91000b.chunk.js": "/pokedex-react/static/js/2.df91000b.chunk.js",
-    "static/js/2.df91000b.chunk.js.map": "/pokedex-react/static/js/2.df91000b.chunk.js.map",
+    "static/js/2.8c2509dd.chunk.js": "/pokedex-react/static/js/2.8c2509dd.chunk.js",
+    "static/js/2.8c2509dd.chunk.js.map": "/pokedex-react/static/js/2.8c2509dd.chunk.js.map",
     "index.html": "/pokedex-react/index.html",
-    "precache-manifest.a76c5168137bebb85cee14f15b728585.js": "/pokedex-react/precache-manifest.a76c5168137bebb85cee14f15b728585.js",
+    "precache-manifest.0af9b0e0518d9388826246d1e14f1e64.js": "/pokedex-react/precache-manifest.0af9b0e0518d9388826246d1e14f1e64.js",
     "service-worker.js": "/pokedex-react/service-worker.js",
-    "static/css/main.1f401077.chunk.css.map": "/pokedex-react/static/css/main.1f401077.chunk.css.map",
-    "static/js/2.df91000b.chunk.js.LICENSE": "/pokedex-react/static/js/2.df91000b.chunk.js.LICENSE",
+    "static/css/main.38082511.chunk.css.map": "/pokedex-react/static/css/main.38082511.chunk.css.map",
+    "static/js/2.8c2509dd.chunk.js.LICENSE": "/pokedex-react/static/js/2.8c2509dd.chunk.js.LICENSE",
     "static/media/logo.svg": "/pokedex-react/static/media/logo.ee7cd8ed.svg",
     "static/media/pokemoncardstyle.css": "/pokedex-react/static/media/rotate.edad5b0b.gif"
   },
   "entrypoints": [
     "static/js/runtime-main.9f02b66c.js",
-    "static/js/2.df91000b.chunk.js",
-    "static/css/main.1f401077.chunk.css",
-    "static/js/main.b2c7f92a.chunk.js"
+    "static/js/2.8c2509dd.chunk.js",
+    "static/css/main.38082511.chunk.css",
+    "static/js/main.f21be9bd.chunk.js"
   ]
 }
