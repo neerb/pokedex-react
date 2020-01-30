@@ -1,17 +1,27 @@
-.pokemon-information {
+.pokeinfo {
+  text-align: center;
   visibility: visible;
   height: 100%;
-  width: 80%;
+  width: 60%;
   font-size: 50px;
   color: white;
-  background: black;
   text-align: left;
   font-size: 20px;
-  padding: 20px;
-  margin: auto;
   text-transform: capitalize;
-  overflow: auto;
+  overflow: scroll;
   font-family: "Courier New";
+  background-color: white;
+  margin: auto;
+}
+
+.pokemon-information-background {
+  background: red;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 
 .bordered-list-item {
@@ -48,12 +58,15 @@
 }
 
 .image-box {
+  text-align: center;
 }
 
 .image-box img {
-  border: solid white 2px;
-  border-radius: 30px;
+  border: solid black 2px;
+  border-radius: 20px;
   margin: 20px;
+  max-width: 10%;
+  max-height: 10%;
 }
 
 .grid {
@@ -67,22 +80,38 @@
   justify-self: center;
 }
 
-.pokeinfo {
-  text-align: center;
-}
-
 .pokemon-name-id {
   font-size: 5vw;
   background-color: green;
-  border-radius: 30px;
   padding: 20px;
-}
-
-.pokemon-name-id h {
-  font-size: 5vw;
+  font-weight: bold;
+  text-align: center;
 }
 
 .pokemon-name-id h1 {
   font-size: 2vw;
-  font-weight: normal;
+  font-weight: bold;
+  color: white;
+}
+
+.navbar-top {
+  height: 5%;
+  background-color: black;
+}
+
+.previous-btn {
+  position: fixed;
+  border: none;
+  height: 5%;
+  width: 75px;
+  background-color: red;
+  left: 0;
+  top: 0;
+}
+.padding-top {
+  margin: 3%;
+}
+
+.padding-bottom {
+  margin: 3%;
 }
