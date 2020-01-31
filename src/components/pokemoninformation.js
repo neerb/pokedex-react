@@ -60,6 +60,9 @@ class PokemonInformation extends Component {
       idnum: null,
       moves: null,
       abilities: null,
+      description: null,
+      genus: null,
+      color: null,
       allinformation: null,
       isLoaded: false,
       error: false
@@ -77,6 +80,38 @@ class PokemonInformation extends Component {
           allInformation: result,
           isLoaded: true
         });
+
+        fetch(this.state.allInformation.species.url)
+          .then(res => res.json())
+          .then(result => {
+            let flavorTextArray = result.flavor_text_entries;
+            let n = 0;
+
+            while (flavorTextArray[n].language.name != "en") {
+              n++;
+            }
+
+            if (flavorTextArray[n].language.name == "en") {
+              this.setState({ description: flavorTextArray[n].flavor_text });
+            }
+
+            let generaArray = result.genera;
+            n = 0;
+
+            while (generaArray[n].language.name != "en") {
+              n++;
+            }
+
+            if (generaArray[n].language.name == "en") {
+              this.setState({ genus: generaArray[n].genus });
+            }
+
+            if (result.color.name === "white") {
+              this.setState({ color: "gray" });
+            } else {
+              this.setState({ color: result.color.name });
+            }
+          });
 
         document.title = capitalize(this.state.name);
       });
@@ -115,16 +150,6 @@ class PokemonInformation extends Component {
       var colorOne = convertColor(types[0].type.name);
       var colorTwo = convertColor(types[1].type.name);
 
-      console.log(
-        "linear-gradient(" +
-          orientation +
-          ", " +
-          colorOne +
-          ", " +
-          colorTwo +
-          ")"
-      );
-
       if (bground != null) {
         bground.style.background =
           "linear-gradient(" +
@@ -150,15 +175,25 @@ class PokemonInformation extends Component {
     if (this.state.isLoaded === true && this.state.error === false) {
       return (
         <div className="pokeinfo">
-          <div className="pokemon-name-id">
-            <h1>{this.state.name}</h1> <h1>#{this.state.idnum}</h1>
+          <div className="pokemon-idnum">
+            <span>#{this.state.idnum}</span>
           </div>
+
           <div className="image-box sprites">
             <img src={allInformation.sprites.front_default}></img>
             <img src={allInformation.sprites.back_default}></img>
             <img src={allInformation.sprites.front_shiny}></img>
             <img src={allInformation.sprites.back_shiny}></img>
           </div>
+          <div className="genus-text">{this.state.genus}</div>
+
+          <div className="flavor-text">{this.state.description}</div>
+
+          <div className="section-box" style={{ background: this.state.color }}>
+            {" "}
+            <span>Profile</span>
+          </div>
+          {/*
           Moves:
           <div className="moves-box">
             {this.state.moves.map(m => (
@@ -167,6 +202,7 @@ class PokemonInformation extends Component {
               </div>
             ))}
           </div>
+          
           <br></br>
           Abilities:
           {this.state.abilities.map(abil => (
@@ -174,6 +210,7 @@ class PokemonInformation extends Component {
               {abil.ability.name}
             </div>
           ))}
+          */}
         </div>
       );
     }
@@ -188,19 +225,21 @@ class PokemonInformation extends Component {
             id="pokemon-information-background"
           >
             <div className="navbar-top">
+              <div className="pokemon-name">
+                {" "}
+                <span>{this.state.name} </span>
+              </div>
               <button
                 className="previous-btn"
                 type="submit"
                 onClick={this.navToPrevious}
-              >
-                <img src="./images/prev.png"></img>
-              </button>
+              ></button>
               <button
                 className="next-btn"
                 type="submit"
                 onClick={this.navToNext}
               >
-                <img src="images/next.png"></img>
+                <img className="next-btn-img"></img>
               </button>
             </div>
             {this.showInformation()}
@@ -209,7 +248,12 @@ class PokemonInformation extends Component {
         </React.Fragment>
       );
     } else {
-      return <div>Loading...</div>;
+      return (
+        <div style={{ textAlign: "center" }}>
+          {" "}
+          <h1>Loading...</h1>
+        </div>
+      );
     }
   }
 }
