@@ -87,22 +87,22 @@ class PokemonInformation extends Component {
             let flavorTextArray = result.flavor_text_entries;
             let n = 0;
 
-            while (flavorTextArray[n].language.name != "en") {
+            while (flavorTextArray[n].language.name !== "en") {
               n++;
             }
 
-            if (flavorTextArray[n].language.name == "en") {
+            if (flavorTextArray[n].language.name === "en") {
               this.setState({ description: flavorTextArray[n].flavor_text });
             }
 
             let generaArray = result.genera;
             n = 0;
 
-            while (generaArray[n].language.name != "en") {
+            while (generaArray[n].language.name !== "en") {
               n++;
             }
 
-            if (generaArray[n].language.name == "en") {
+            if (generaArray[n].language.name === "en") {
               this.setState({ genus: generaArray[n].genus });
             }
 
@@ -123,6 +123,8 @@ class PokemonInformation extends Component {
 
     this.navToPrevious = this.navToPrevious.bind(this);
     this.navToNext = this.navToNext.bind(this);
+    this.returnAbilityString = this.returnAbilityString.bind(this);
+    this.returnTypeBoxes = this.returnTypeBoxes.bind(this);
   }
 
   navToPrevious() {
@@ -133,6 +135,77 @@ class PokemonInformation extends Component {
   navToNext() {
     window.location.href =
       "/pokeinfo/" + (parseInt(this.state.allInformation.id, 10) + 1);
+  }
+
+  returnAbilityString() {
+    let abilities = this.state.allInformation.abilities;
+
+    console.log(abilities);
+
+    if (abilities.length === 2) {
+      return (
+        capitalize(abilities[0].ability.name) +
+        ", " +
+        capitalize(abilities[1].ability.name)
+      );
+    } else if (abilities.length === 1) {
+      return capitalize(abilities[0]);
+    } else {
+      return "N/A";
+    }
+  }
+
+  returnTypeBoxes() {
+    let types = this.state.allInformation.types;
+
+    if (types.length === 2) {
+      var orientation = "to left";
+      var colorOne = convertColor(types[0].type.name);
+      var colorTwo = convertColor(types[1].type.name);
+
+      return (
+        <React.Fragment>
+          <span
+            style={{
+              backgroundColor: colorOne,
+              textTransform: "uppercase",
+              margin: "5px",
+              padding: "2px 3px 2px 3px"
+            }}
+          >
+            {types[0].type.name}
+          </span>
+          <span
+            style={{
+              backgroundColor: colorTwo,
+              textTransform: "uppercase",
+              margin: "5px",
+              padding: "2px 3px 2px 3px"
+            }}
+          >
+            {types[1].type.name}
+          </span>
+        </React.Fragment>
+      );
+    } else if (types.length === 1) {
+      var colorOne = convertColor(types[0].type.name);
+      return (
+        <React.Fragment>
+          <span
+            style={{
+              backgroundColor: colorOne,
+              textTransform: "uppercase",
+              margin: "5px",
+              padding: "2px 3px 2px 3px"
+            }}
+          >
+            {types[0].type.name}
+          </span>
+        </React.Fragment>
+      );
+    } else {
+      return <span style={{ backgroundColor: convertColor("???") }}>???</span>;
+    }
   }
 
   componentDidMount() {}
@@ -150,7 +223,7 @@ class PokemonInformation extends Component {
       var colorOne = convertColor(types[0].type.name);
       var colorTwo = convertColor(types[1].type.name);
 
-      if (bground != null) {
+      if (bground !== null) {
         bground.style.background =
           "linear-gradient(" +
           orientation +
@@ -161,13 +234,13 @@ class PokemonInformation extends Component {
           ")";
       }
     } else if (types.length === 1) {
-      if (bground != null) {
+      if (bground !== null) {
         bground.style.background = convertColor(
           allInformation.types[0].type.name
         );
       }
     } else {
-      if (bground != null) {
+      if (bground !== null) {
         bground.style.background = convertColor("???");
       }
     }
@@ -179,11 +252,15 @@ class PokemonInformation extends Component {
             <span>#{this.state.idnum}</span>
           </div>
 
-          <div className="image-box sprites">
-            <img src={allInformation.sprites.front_default}></img>
-            <img src={allInformation.sprites.back_default}></img>
-            <img src={allInformation.sprites.front_shiny}></img>
-            <img src={allInformation.sprites.back_shiny}></img>
+          <div className="info-box">
+            <div className="typeandstat-info">
+              <div className="types">{this.returnTypeBoxes()}</div>
+            </div>
+            <div className="image-box sprites">
+              <button className="up-image"></button>
+              <img src={allInformation.sprites.front_default}></img>
+              <button className="down-image"></button>
+            </div>
           </div>
           <div className="genus-text">{this.state.genus}</div>
 
@@ -192,6 +269,22 @@ class PokemonInformation extends Component {
           <div className="section-box" style={{ background: this.state.color }}>
             {" "}
             <span>Profile</span>
+          </div>
+
+          <div className="profile-info-box">
+            <strong>Height:</strong>
+
+            <span>{this.state.allInformation.height}</span>
+
+            <strong>Weight:</strong>
+
+            <span>{this.state.allInformation.weight}</span>
+          </div>
+
+          <div className="profile-info-box">
+            <strong>Abilities:</strong>
+
+            <span>{this.returnAbilityString()}</span>
           </div>
           {/*
           Moves:
@@ -225,10 +318,7 @@ class PokemonInformation extends Component {
             id="pokemon-information-background"
           >
             <div className="navbar-top">
-              <div className="pokemon-name">
-                {" "}
-                <span>{this.state.name} </span>
-              </div>
+              <div className="pokemon-name"> {this.state.name}</div>
               <button
                 className="previous-btn"
                 type="submit"
