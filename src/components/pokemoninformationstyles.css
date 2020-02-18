@@ -68,7 +68,14 @@
 
 .image-box {
   width: 20%;
-  margin: 0;
+  height: 100px;
+  margin: 10px auto 10px auto;
+  padding: 20px;
+}
+
+.sprites {
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .image-box img {

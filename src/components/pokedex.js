@@ -4,6 +4,7 @@ import PokemonCard from "./pokemon-card";
 import PokemonInformation from "./pokemoninformation";
 import ErrorMessage from "./errormessage";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const insertionSort = array => {
   const length = array.length;
@@ -142,7 +143,16 @@ class Pokedex extends Component {
           </div>
         </Route>
 
-        <Route path="/pokeinfo/:name" component={PokemonInformation}></Route>
+        <TransitionGroup>
+          <CSSTransition timeout={500} classNames="fade" unmountOnExit>
+            <Switch>
+              <Route
+                path="/pokeinfo/:name"
+                component={PokemonInformation}
+              ></Route>
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
 
         <Route path="/error" component={ErrorMessage}></Route>
       </BrowserRouter>

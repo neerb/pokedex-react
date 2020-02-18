@@ -257,9 +257,10 @@ class PokemonInformation extends Component {
               <div className="types">{this.returnTypeBoxes()}</div>
             </div>
             <div className="image-box sprites">
-              <button className="up-image"></button>
               <img src={allInformation.sprites.front_default}></img>
-              <button className="down-image"></button>
+              <img src={allInformation.sprites.back_default}></img>
+              <img src={allInformation.sprites.front_shiny}></img>
+              <img src={allInformation.sprites.back_shiny}></img>
             </div>
           </div>
           <div className="genus-text">{this.state.genus}</div>
