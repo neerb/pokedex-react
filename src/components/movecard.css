@@ -1,0 +1,31 @@
+.move-card {
+  margin: 0 0 5px 0;
+}
+
+.name {
+  font-size: 14px;
+  color: black;
+  text-transform: capitalize;
+  width: 60%;
+  display: inline-block;
+}
+
+.type-box {
+  width: 30%;
+  height: 20px;
+  background-color: black;
+  color: white;
+  border-radius: 2px;
+  padding: 5px 5px 5px 5px;
+  font-size: 14px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: left;
+  display: inline-block;
+}
+
+.button {
+  width: 10%;
+  background-color: black;
+}

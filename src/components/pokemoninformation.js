@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./pokemoninformationstyles.css";
+import MoveCard from "./movecard.js";
 
 const capitalize = s => {
   if (typeof s !== "string") return "";
@@ -46,6 +47,14 @@ const convertColor = c => {
   } else if (c === "???") {
     return "#68A090";
   }
+};
+
+const hectogramsToPounds = s => {
+  return (s / 10.0).toFixed(2);
+};
+
+const decimetersToCentimeters = s => {
+  return s * 10.0;
 };
 
 class PokemonInformation extends Component {
@@ -107,7 +116,13 @@ class PokemonInformation extends Component {
             }
 
             if (result.color.name === "white") {
-              this.setState({ color: "gray" });
+              let types = this.state.allInformation.types;
+
+              if (types.length >= 1) {
+                this.setState({ color: convertColor(types[0].type.name) });
+              } else {
+                this.setState({ color: "gray" });
+              }
             } else {
               this.setState({ color: result.color.name });
             }
@@ -149,7 +164,7 @@ class PokemonInformation extends Component {
         capitalize(abilities[1].ability.name)
       );
     } else if (abilities.length === 1) {
-      return capitalize(abilities[0]);
+      return capitalize(abilities[0].ability.name);
     } else {
       return "N/A";
     }
@@ -170,7 +185,7 @@ class PokemonInformation extends Component {
               backgroundColor: colorOne,
               textTransform: "uppercase",
               margin: "5px",
-              padding: "2px 3px 2px 3px"
+              padding: "2px 10px 2px 10px"
             }}
           >
             {types[0].type.name}
@@ -180,7 +195,7 @@ class PokemonInformation extends Component {
               backgroundColor: colorTwo,
               textTransform: "uppercase",
               margin: "5px",
-              padding: "2px 3px 2px 3px"
+              padding: "2px 10px 2px 10px"
             }}
           >
             {types[1].type.name}
@@ -196,7 +211,7 @@ class PokemonInformation extends Component {
               backgroundColor: colorOne,
               textTransform: "uppercase",
               margin: "5px",
-              padding: "2px 3px 2px 3px"
+              padding: "2px 10px 2px 10px"
             }}
           >
             {types[0].type.name}
@@ -251,60 +266,75 @@ class PokemonInformation extends Component {
           <div className="pokemon-idnum">
             <span>#{this.state.idnum}</span>
           </div>
-
           <div className="info-box">
             <div className="typeandstat-info">
               <div className="types">{this.returnTypeBoxes()}</div>
             </div>
-            <div className="image-box sprites">
-              <img src={allInformation.sprites.front_default}></img>
-              <img src={allInformation.sprites.back_default}></img>
-              <img src={allInformation.sprites.front_shiny}></img>
-              <img src={allInformation.sprites.back_shiny}></img>
+
+            <div className="sprites">
+              <div className="two-sprites">
+                <div>
+                  {" "}
+                  <strong>Normal</strong>
+                </div>
+                <img src={allInformation.sprites.front_default}></img>
+                <img src={allInformation.sprites.back_default}></img>
+              </div>
+
+              <div className="two-sprites">
+                <div>
+                  <strong>Shiny</strong>
+                </div>
+                <img src={allInformation.sprites.front_shiny}></img>
+                <img src={allInformation.sprites.back_shiny}></img>
+              </div>
             </div>
           </div>
-          <div className="genus-text">{this.state.genus}</div>
+          <div className="short-description">
+            <div className="genus-text">{this.state.genus}</div>
 
-          <div className="flavor-text">{this.state.description}</div>
-
+            <div className="flavor-text">{this.state.description}</div>
+          </div>
           <div className="section-box" style={{ background: this.state.color }}>
             {" "}
             <span>Profile</span>
           </div>
-
           <div className="profile-info-box">
             <strong>Height:</strong>
 
-            <span>{this.state.allInformation.height}</span>
+            <span>
+              {decimetersToCentimeters(this.state.allInformation.height)}cm
+            </span>
 
             <strong>Weight:</strong>
 
-            <span>{this.state.allInformation.weight}</span>
+            <span>
+              {hectogramsToPounds(this.state.allInformation.weight)}kgs
+            </span>
           </div>
-
           <div className="profile-info-box">
             <strong>Abilities:</strong>
 
             <span>{this.returnAbilityString()}</span>
+
+            <strong>Base Experience:</strong>
+
+            <span>{this.state.allInformation.base_experience}</span>
           </div>
-          {/*
-          Moves:
+          <div className="section-box" style={{ background: this.state.color }}>
+            {" "}
+            <span>Moves</span>
+          </div>
           <div className="moves-box">
-            {this.state.moves.map(m => (
-              <div className="bordered-list-item" key={m.move.name}>
-                {m.move.name}
-              </div>
-            ))}
+            <ul>
+              {this.state.moves.map(m => (
+                <div key={m.move.name}>
+                  <MoveCard name={m.move.name} url={m.move.url}></MoveCard>
+                </div>
+              ))}
+            </ul>
           </div>
-          
           <br></br>
-          Abilities:
-          {this.state.abilities.map(abil => (
-            <div className="bordered-list-item" key={abil.ability.name}>
-              {abil.ability.name}
-            </div>
-          ))}
-          */}
         </div>
       );
     }
