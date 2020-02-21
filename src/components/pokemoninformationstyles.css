@@ -180,7 +180,7 @@
   vertical-align: middle;
   position: fixed;
   border: none;
-  height: 5%;
+  height: 35px;
   width: 75px;
   background-color: transparent;
   left: 1%;
@@ -199,7 +199,7 @@
   background-repeat: no-repeat;
   position: fixed;
   border: none;
-  height: 5%;
+  height: 35px;
   width: 75px;
   background-color: transparent;
   right: 1%;
