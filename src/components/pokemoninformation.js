@@ -144,12 +144,14 @@ class PokemonInformation extends Component {
 
   navToPrevious() {
     window.location.href =
-      "/pokeinfo/" + (parseInt(this.state.allInformation.id, 10) - 1);
+      "/#/pokeinfo/" + (parseInt(this.state.allInformation.id, 10) - 1);
+    window.location.reload();
   }
 
   navToNext() {
     window.location.href =
-      "/pokeinfo/" + (parseInt(this.state.allInformation.id, 10) + 1);
+      "/#/pokeinfo/" + (parseInt(this.state.allInformation.id, 10) + 1);
+    window.location.reload();
   }
 
   returnAbilityString() {
