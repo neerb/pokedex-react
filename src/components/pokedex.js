@@ -133,8 +133,10 @@ class Pokedex extends Component {
     } = this.state;
 
     return (
-      <HashRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename="pokedex-react">
         <div>
+          <Route path="/pokeinfo/:name" component={PokemonInformation}></Route>
+
           <Route exact path="/">
             <div className="pokedex">
               <div className="pokedex-division" id="pokedex-division">
@@ -151,11 +153,9 @@ class Pokedex extends Component {
             </div>
           </Route>
 
-          <Route path="/pokeinfo/:name" component={PokemonInformation}></Route>
-
           <Route path="/error" component={ErrorMessage}></Route>
         </div>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }
