@@ -115,7 +115,10 @@ class PokemonInformation extends Component {
               this.setState({ genus: generaArray[n].genus });
             }
 
-            if (result.color.name === "white") {
+            if (
+              result.color.name === "white" ||
+              result.color.name == "yellow"
+            ) {
               let types = this.state.allInformation.types;
 
               if (types.length >= 1) {
@@ -143,10 +146,12 @@ class PokemonInformation extends Component {
   }
 
   navToPrevious() {
-    window.location.href =
-      "/pokedex-react/#/pokeinfo/" +
-      (parseInt(this.state.allInformation.id, 10) - 1);
-    window.location.reload();
+    if (parseInt(this.state.allInformation.id, 10) - 1 > 0) {
+      window.location.href =
+        "/pokedex-react/#/pokeinfo/" +
+        (parseInt(this.state.allInformation.id, 10) - 1);
+      window.location.reload();
+    }
   }
 
   navToNext() {

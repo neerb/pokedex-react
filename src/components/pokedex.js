@@ -82,7 +82,7 @@ class Pokedex extends Component {
       newSearchList = this.state.pokemonDataList;
     } else {
       this.state.pokemonDataList.map(pokemon => {
-        if (pokemon.name.includes(name)) {
+        if (pokemon.name.toLowerCase().includes(name.toLowerCase())) {
           newSearchList.push(pokemon);
         }
       });
