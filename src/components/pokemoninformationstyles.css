@@ -294,3 +294,25 @@
 
 .half {
 }
+
+.loading-screen {
+  text-align: center;
+}
+
+.loading-screen-image {
+  background-image: url("./images/pokeball-png.png");
+  background-size: contain;
+  height: 200px;
+  width: 200px;
+  -webkit-animation: rotate 2s forwards infinite;
+  margin: auto;
+}
+
+@keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}

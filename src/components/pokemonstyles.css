@@ -33,8 +33,9 @@ body {
   background-color: black;
   opacity: 0.5;
   width: 40%;
+  min-width: 200px;
   text-align: center;
-  font-size: calc(1vw + 1vh);
+  font-size: calc(2vw + 1vh);
   margin: 0 20px 20px 20px;
   border-color: black;
   border-radius: 0 0 20px 20px;

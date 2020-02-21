@@ -90,7 +90,7 @@
 
 .pokemon-id-number {
   position: absolute;
-  font-size: calc(0.75vw + 0.75vh);
+  font-size: calc(0.75vw + 1.5vh);
   font-family: "Courier New";
   font-weight: bold;
   color: black;
