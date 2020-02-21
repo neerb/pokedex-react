@@ -3,7 +3,14 @@ import "./pokemonstyles.css";
 import PokemonCard from "./pokemon-card";
 import PokemonInformation from "./pokemoninformation";
 import ErrorMessage from "./errormessage";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link,
+  HashRouter,
+  StaticRouter
+} from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const insertionSort = array => {
@@ -127,34 +134,27 @@ class Pokedex extends Component {
 
     return (
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Route exact path="/">
-          <div className="pokedex">
-            <div className="pokedex-division" id="pokedex-division">
-              <input
-                className="pokemon-search"
-                type="text"
-                onChange={this.showPokemonResults}
-                id="pokemon-search-bar"
-                placeholder="Search for a pokemon..."
-              ></input>
+        <div>
+          <Route exact path="/">
+            <div className="pokedex">
+              <div className="pokedex-division" id="pokedex-division">
+                <input
+                  className="pokemon-search"
+                  type="text"
+                  onChange={this.showPokemonResults}
+                  id="pokemon-search-bar"
+                  placeholder="Search for a pokemon..."
+                ></input>
 
-              {this.returnMappedImages()}
+                {this.returnMappedImages()}
+              </div>
             </div>
-          </div>
-        </Route>
+          </Route>
 
-        <TransitionGroup>
-          <CSSTransition timeout={500} classNames="fade" unmountOnExit>
-            <Switch>
-              <Route
-                path="/pokeinfo/:name"
-                component={PokemonInformation}
-              ></Route>
-            </Switch>
-          </CSSTransition>
-        </TransitionGroup>
+          <Route path="/pokeinfo/:name" component={PokemonInformation}></Route>
 
-        <Route path="/error" component={ErrorMessage}></Route>
+          <Route path="/error" component={ErrorMessage}></Route>
+        </div>
       </BrowserRouter>
     );
   }
