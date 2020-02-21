@@ -133,7 +133,7 @@ class Pokedex extends Component {
     } = this.state;
 
     return (
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter basename={process.env.PUBLIC_URL}>
         <div>
           <Route exact path="/">
             <div className="pokedex">
@@ -155,7 +155,7 @@ class Pokedex extends Component {
 
           <Route path="/error" component={ErrorMessage}></Route>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
