@@ -23,7 +23,6 @@ class PokemonCard extends Component {
   updateClick() {
     this.setState({ clicked: true });
     window.location.href = "/pokedex-react/#/pokeinfo/" + this.state.name;
-    window.location.reload();
   }
 
   routeToInformation() {}
