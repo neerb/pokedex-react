@@ -345,7 +345,6 @@ class PokemonInformation extends Component {
   }
 
   render() {
-    /*
     if (this.state.isLoaded == true) {
       return (
         <React.Fragment>
@@ -374,15 +373,14 @@ class PokemonInformation extends Component {
         </React.Fragment>
       );
     } else {
-      */
-    return (
-      <div className="loading-screen">
-        {" "}
-        <h1>Loading...</h1>
-        <div className="loading-screen-image"></div>
-      </div>
-    );
-    //}
+      return (
+        <div className="loading-screen">
+          {" "}
+          <h1>Loading...</h1>
+          <div className="loading-screen-image"></div>
+        </div>
+      );
+    }
   }
 }
 
