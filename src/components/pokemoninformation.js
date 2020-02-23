@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./pokemoninformationstyles.css";
 import MoveCard from "./movecard.js";
+import { useHistory } from "react-router-dom";
 
 const capitalize = s => {
   if (typeof s !== "string") return "";
@@ -56,6 +57,36 @@ const hectogramsToPounds = s => {
 const decimetersToCentimeters = s => {
   return s * 10.0;
 };
+
+function NavToPrev(props) {
+  let history = useHistory();
+
+  function handleClick() {
+    history.push(props.currentNum - 1);
+    window.location.reload();
+  }
+
+  return (
+    <button
+      className="previous-btn"
+      type="submit"
+      onClick={handleClick}
+    ></button>
+  );
+}
+
+function NavToNext(props) {
+  let history = useHistory();
+
+  function handleClick() {
+    history.push(props.currentNum + 1);
+    window.location.reload();
+  }
+
+  return (
+    <button className="next-btn" type="submit" onClick={handleClick}></button>
+  );
+}
 
 class PokemonInformation extends Component {
   constructor(props) {
@@ -147,10 +178,12 @@ class PokemonInformation extends Component {
 
   navToPrevious() {
     if (parseInt(this.state.allInformation.id, 10) - 1 > 0) {
+      /*
       window.location.href =
         "/pokedex-react/#/pokeinfo/" +
         (parseInt(this.state.allInformation.id, 10) - 1);
       window.location.reload();
+      */
     }
   }
 
@@ -359,18 +392,9 @@ class PokemonInformation extends Component {
           >
             <div className="navbar-top">
               <div className="pokemon-name"> {this.state.name}</div>
-              <button
-                className="previous-btn"
-                type="submit"
-                onClick={this.navToPrevious}
-              ></button>
-              <button
-                className="next-btn"
-                type="submit"
-                onClick={this.navToNext}
-              >
-                <img className="next-btn-img"></img>
-              </button>
+
+              <NavToPrev currentNum={this.state.idnum}></NavToPrev>
+              <NavToNext currentNum={this.state.idnum}></NavToNext>
             </div>
             {this.showInformation()}
             <div className="padding-bottom"></div>
