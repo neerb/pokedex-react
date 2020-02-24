@@ -62,7 +62,7 @@ function NavToPrev(props) {
   let history = useHistory();
 
   function handleClick() {
-    history.push(props.currentNum - 1);
+    history.push("/pokeinfo/" + (props.currentNum - 1));
     window.location.reload();
   }
 
@@ -79,7 +79,7 @@ function NavToNext(props) {
   let history = useHistory();
 
   function handleClick() {
-    history.push(props.currentNum + 1);
+    history.push("/pokeinfo/" + (props.currentNum + 1));
     window.location.reload();
   }
 
@@ -189,9 +189,7 @@ class PokemonInformation extends Component {
 
   navToNext() {
     window.location.href =
-      "/pokedex-react/#/pokeinfo/" +
-      (parseInt(this.state.allInformation.id, 10) + 1);
-    window.location.reload();
+      "/#/pokeinfo/" + (parseInt(this.state.allInformation.id, 10) + 1);
   }
 
   returnAbilityString() {
