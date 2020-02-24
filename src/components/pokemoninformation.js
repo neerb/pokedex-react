@@ -417,8 +417,6 @@ class PokemonInformation extends Component {
   }
 
   render() {
-    return <LoadingScreen></LoadingScreen>;
-
     if (this.state.isLoaded === true) {
       return (
         <React.Fragment>
