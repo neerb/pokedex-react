@@ -1,25 +1,24 @@
 {
   "files": {
-    "main.css": "/pokedex-react/static/css/main.06bc7e69.chunk.css",
-    "main.js": "/pokedex-react/static/js/main.49207613.chunk.js",
-    "main.js.map": "/pokedex-react/static/js/main.49207613.chunk.js.map",
+    "main.css": "/pokedex-react/static/css/main.68815ec9.chunk.css",
+    "main.js": "/pokedex-react/static/js/main.9cd6d19b.chunk.js",
+    "main.js.map": "/pokedex-react/static/js/main.9cd6d19b.chunk.js.map",
     "runtime-main.js": "/pokedex-react/static/js/runtime-main.9f02b66c.js",
     "runtime-main.js.map": "/pokedex-react/static/js/runtime-main.9f02b66c.js.map",
-    "static/js/2.0c6cd1c2.chunk.js": "/pokedex-react/static/js/2.0c6cd1c2.chunk.js",
-    "static/js/2.0c6cd1c2.chunk.js.map": "/pokedex-react/static/js/2.0c6cd1c2.chunk.js.map",
+    "static/js/2.a96573b1.chunk.js": "/pokedex-react/static/js/2.a96573b1.chunk.js",
+    "static/js/2.a96573b1.chunk.js.map": "/pokedex-react/static/js/2.a96573b1.chunk.js.map",
     "index.html": "/pokedex-react/index.html",
-    "precache-manifest.201e7e0173764a93c3ebc4360458d39f.js": "/pokedex-react/precache-manifest.201e7e0173764a93c3ebc4360458d39f.js",
+    "precache-manifest.300d5e6e02c624dc3d2eb6fc29b6232d.js": "/pokedex-react/precache-manifest.300d5e6e02c624dc3d2eb6fc29b6232d.js",
     "service-worker.js": "/pokedex-react/service-worker.js",
-    "static/css/main.06bc7e69.chunk.css.map": "/pokedex-react/static/css/main.06bc7e69.chunk.css.map",
-    "static/js/2.0c6cd1c2.chunk.js.LICENSE": "/pokedex-react/static/js/2.0c6cd1c2.chunk.js.LICENSE",
+    "static/css/main.68815ec9.chunk.css.map": "/pokedex-react/static/css/main.68815ec9.chunk.css.map",
+    "static/js/2.a96573b1.chunk.js.LICENSE": "/pokedex-react/static/js/2.a96573b1.chunk.js.LICENSE",
     "static/media/logo.svg": "/pokedex-react/static/media/logo.ee7cd8ed.svg",
-    "static/media/pokemoninformationstyles.css": "/pokedex-react/static/media/pokeball-png.7e1c8e65.png",
     "static/media/pokemoncardstyle.css": "/pokedex-react/static/media/rotate.edad5b0b.gif"
   },
   "entrypoints": [
     "static/js/runtime-main.9f02b66c.js",
-    "static/js/2.0c6cd1c2.chunk.js",
-    "static/css/main.06bc7e69.chunk.css",
-    "static/js/main.49207613.chunk.js"
+    "static/js/2.a96573b1.chunk.js",
+    "static/css/main.68815ec9.chunk.css",
+    "static/js/main.9cd6d19b.chunk.js"
   ]
 }
