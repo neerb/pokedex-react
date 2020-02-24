@@ -69,6 +69,13 @@ class Pokedex extends Component {
 
     console.log(this.state.pokemonDataList);
 
+    /*
+    this.setState({
+      pokemonList: insertionSort(this.state.pokemonList),
+      pokemonDataList: insertionSort(this.state.pokemonDataList)
+    });
+    */
+
     //console.log(this.pokemonDataList);
     this.returnMappedImages = this.returnMappedImages.bind(this);
     this.showPokemonResults = this.showPokemonResults.bind(this);

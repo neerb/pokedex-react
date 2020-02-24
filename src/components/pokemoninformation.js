@@ -179,6 +179,7 @@ class PokemonInformation extends Component {
     this.returnAbilityString = this.returnAbilityString.bind(this);
     this.returnTypeBoxes = this.returnTypeBoxes.bind(this);
     this.displayPrevButton = this.displayPrevButton.bind(this);
+    this.displayPokemonSprites = this.displayPokemonSprites.bind(this);
   }
 
   navToPrevious() {
@@ -195,6 +196,10 @@ class PokemonInformation extends Component {
   navToNext() {
     window.location.href =
       "/#/pokeinfo/" + (parseInt(this.state.allInformation.id, 10) + 1);
+  }
+
+  returnToPokedex() {
+    window.location.href = "";
   }
 
   returnAbilityString() {
@@ -278,6 +283,40 @@ class PokemonInformation extends Component {
     }
   }
 
+  displayPokemonSprites() {
+    if (this.state.allInformation.sprites.front_shiny != null) {
+      return (
+        <div className="sprites">
+          <div className="two-sprites">
+            <div>
+              {" "}
+              <strong>Normal</strong>
+            </div>
+            <img src={this.state.allInformation.sprites.front_default}></img>
+            <img src={this.state.allInformation.sprites.back_default}></img>
+          </div>
+
+          <div className="two-sprites">
+            <div>
+              <strong>Shiny</strong>
+            </div>
+            <img src={this.state.allInformation.sprites.front_shiny}></img>
+            <img src={this.state.allInformation.sprites.back_shiny}></img>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="sprites">
+          <div className="one-sprite">
+            <img src={this.state.allInformation.sprites.front_default}></img>
+            <img src={this.state.allInformation.sprites.back_default}></img>
+          </div>
+        </div>
+      );
+    }
+  }
+
   showInformation() {
     const { allInformation } = this.state;
 
@@ -324,24 +363,7 @@ class PokemonInformation extends Component {
               <div className="types">{this.returnTypeBoxes()}</div>
             </div>
 
-            <div className="sprites">
-              <div className="two-sprites">
-                <div>
-                  {" "}
-                  <strong>Normal</strong>
-                </div>
-                <img src={allInformation.sprites.front_default}></img>
-                <img src={allInformation.sprites.back_default}></img>
-              </div>
-
-              <div className="two-sprites">
-                <div>
-                  <strong>Shiny</strong>
-                </div>
-                <img src={allInformation.sprites.front_shiny}></img>
-                <img src={allInformation.sprites.back_shiny}></img>
-              </div>
-            </div>
+            {this.displayPokemonSprites()}
           </div>
           <div className="short-description">
             <div className="genus-text">{this.state.genus}</div>
@@ -409,7 +431,15 @@ class PokemonInformation extends Component {
               <NavToNext currentNum={this.state.idnum}></NavToNext>
             </div>
             {this.showInformation()}
-            <div className="padding-bottom"></div>
+
+            <div className="return-link">
+              <input
+                className="return-button"
+                type="submit"
+                value="Return to Pokédex"
+                onClick={this.returnToPokedex}
+              ></input>
+            </div>
           </div>
         </React.Fragment>
       );

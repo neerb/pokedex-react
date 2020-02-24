@@ -1,7 +1,7 @@
 .pokeinfo {
   text-align: center;
   visibility: visible;
-  height: 91%;
+  height: 88%;
   width: 600px;
   font-size: 50px;
   color: white;
@@ -19,7 +19,7 @@
   will-change: transform;
   min-width: 300px;
   max-width: 85%;
-  margin: 50px auto 10px;
+  margin: 50px auto 0px;
   scroll-behavior: smooth;
 }
 
@@ -32,6 +32,28 @@
   height: 100%;
   text-align: center;
 }
+
+.return-button {
+  border: none;
+  background: none;
+  background-color: black;
+  padding: 5px 30px 5px 30px;
+  margin: 5px;
+  border-radius: 10px;
+  font-size: calc(0.75vw + 0.75vh);
+  color: white;
+
+  height: 100%;
+  vertical-align: middle;
+  text-align: right;
+}
+
+.return-link {
+  width: 100%;
+  vertical-align: middle;
+  margin: auto;
+}
+
 /*
 .bordered-list-item {
   background-color: rgba(70, 70, 70, 0.85);
@@ -93,6 +115,10 @@
 .two-sprites div {
   color: black;
   font-size: 15px;
+}
+
+.one-sprite {
+  padding: 20px 0 0 0;
 }
 
 .image-box img {
