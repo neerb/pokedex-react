@@ -36,7 +36,7 @@
 .return-button {
   border: none;
   background: none;
-  background-color: black;
+  background-color: transparent;
   padding: 5px 30px 5px 30px;
   margin: 5px;
   border-radius: 10px;
@@ -46,6 +46,18 @@
   height: 100%;
   vertical-align: middle;
   text-align: right;
+
+  border: white solid 2px;
+}
+
+.return-button div {
+  background: url("./images/prev.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
 }
 
 .return-link {
@@ -335,6 +347,19 @@
 .half {
 }
 
+.center-loading {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateY(25%);
+}
+
 .loading-screen {
   text-align: center;
   color: white;
@@ -346,6 +371,7 @@
   height: 200px;
   width: 200px;
   -webkit-animation: rotate 2s forwards infinite;
+  animation: rotate 2s forwards infinite;
   margin: auto;
 }
 
