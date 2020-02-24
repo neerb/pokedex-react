@@ -62,8 +62,12 @@ function NavToPrev(props) {
   let history = useHistory();
 
   function handleClick() {
-    history.push("/pokeinfo/" + (props.currentNum - 1));
-    window.location.reload();
+    let n = props.currentNum - 1;
+
+    if (n > 0) {
+      history.push("/pokeinfo/" + n);
+      window.location.reload();
+    }
   }
 
   return (
@@ -174,6 +178,7 @@ class PokemonInformation extends Component {
     this.navToNext = this.navToNext.bind(this);
     this.returnAbilityString = this.returnAbilityString.bind(this);
     this.returnTypeBoxes = this.returnTypeBoxes.bind(this);
+    this.displayPrevButton = this.displayPrevButton.bind(this);
   }
 
   navToPrevious() {
@@ -264,6 +269,14 @@ class PokemonInformation extends Component {
   }
 
   componentDidMount() {}
+
+  displayPrevButton() {
+    if (this.state.idnum > 1) {
+      return <NavToPrev currentNum={this.state.idnum}></NavToPrev>;
+    } else {
+      return null;
+    }
+  }
 
   showInformation() {
     const { allInformation } = this.state;
@@ -391,7 +404,8 @@ class PokemonInformation extends Component {
             <div className="navbar-top">
               <div className="pokemon-name"> {this.state.name}</div>
 
-              <NavToPrev currentNum={this.state.idnum}></NavToPrev>
+              {this.displayPrevButton()}
+
               <NavToNext currentNum={this.state.idnum}></NavToNext>
             </div>
             {this.showInformation()}
