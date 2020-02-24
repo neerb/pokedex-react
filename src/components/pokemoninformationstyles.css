@@ -37,17 +37,24 @@
   border: none;
   background: none;
   background-color: transparent;
-  padding: 5px 30px 5px 30px;
-  margin: 5px;
-  border-radius: 10px;
-  font-size: calc(0.75vw + 0.75vh);
+  padding: 5px 25% 5px 25%;
+  margin: 0;
+  border-radius: 10px 10px 0 0;
+  font-size: calc(1vh + 1vw);
   color: white;
-
-  height: 100%;
-  vertical-align: middle;
-  text-align: right;
-
   border: white solid 2px;
+  position: fixed;
+  transform: translateX(-50%);
+  bottom: 0;
+
+  opacity: 0.65;
+
+  transition: 0.75s;
+}
+
+.return-button:hover {
+  background-color: red;
+  opacity: 1;
 }
 
 .return-button div {
@@ -61,8 +68,6 @@
 }
 
 .return-link {
-  width: 100%;
-  vertical-align: middle;
   margin: auto;
 }
 
