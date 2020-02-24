@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./pokemoninformationstyles.css";
 import MoveCard from "./movecard.js";
+import LoadingScreen from "./loadingscreen";
 import { useHistory } from "react-router-dom";
 
 const capitalize = s => {
@@ -416,7 +417,7 @@ class PokemonInformation extends Component {
   }
 
   render() {
-    if (this.state.isLoaded == true) {
+    if (this.state.isLoaded === true) {
       return (
         <React.Fragment>
           <div
@@ -444,13 +445,7 @@ class PokemonInformation extends Component {
         </React.Fragment>
       );
     } else {
-      return (
-        <div className="loading-screen">
-          {" "}
-          <h1>Loading...</h1>
-          <div className="loading-screen-image"></div>
-        </div>
-      );
+      return <LoadingScreen></LoadingScreen>;
     }
   }
 }

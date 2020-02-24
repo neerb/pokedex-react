@@ -3,6 +3,8 @@ import "./pokemonstyles.css";
 import PokemonCard from "./pokemon-card";
 import PokemonInformation from "./pokemoninformation";
 import ErrorMessage from "./errormessage";
+import LoadingScreen from "./loadingscreen";
+
 import {
   BrowserRouter,
   Switch,
@@ -35,7 +37,8 @@ class Pokedex extends Component {
     this.state = {
       pokemonList: [],
       pokemonDataList: [],
-      searchedPokemonDataList: []
+      searchedPokemonDataList: [],
+      isLoaded: false
     };
 
     fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1000")
@@ -63,6 +66,8 @@ class Pokedex extends Component {
                 pokemonDataList: newList,
                 searchedPokemonDataList: newList
               });
+
+              this.setState({ isLoaded: true });
             });
         });
       });
@@ -79,6 +84,8 @@ class Pokedex extends Component {
     //console.log(this.pokemonDataList);
     this.returnMappedImages = this.returnMappedImages.bind(this);
     this.showPokemonResults = this.showPokemonResults.bind(this);
+
+    this.setState({ isLoaded: true });
   }
 
   showPokemonResults() {
@@ -139,31 +146,38 @@ class Pokedex extends Component {
       pokemonDataList
     } = this.state;
 
-    return (
-      <HashRouter basename={process.env.PUBLIC_URL}>
-        <div>
-          <Route exact path="/">
-            <div className="pokedex">
-              <div className="pokedex-division" id="pokedex-division">
-                <input
-                  className="pokemon-search"
-                  type="text"
-                  onChange={this.showPokemonResults}
-                  id="pokemon-search-bar"
-                  placeholder="Search for a pokemon..."
-                ></input>
+    if (this.state.isLoaded === true) {
+      return (
+        <HashRouter basename={process.env.PUBLIC_URL}>
+          <div>
+            <Route exact path="/">
+              <div className="pokedex">
+                <div className="pokedex-division" id="pokedex-division">
+                  <input
+                    className="pokemon-search"
+                    type="text"
+                    onChange={this.showPokemonResults}
+                    id="pokemon-search-bar"
+                    placeholder="Search for a pokemon..."
+                  ></input>
 
-                {this.returnMappedImages()}
+                  {this.returnMappedImages()}
+                </div>
               </div>
-            </div>
-          </Route>
+            </Route>
 
-          <Route path="/pokeinfo/:name" component={PokemonInformation}></Route>
+            <Route
+              path="/pokeinfo/:name"
+              component={PokemonInformation}
+            ></Route>
 
-          <Route path="/error" component={ErrorMessage}></Route>
-        </div>
-      </HashRouter>
-    );
+            <Route path="/error" component={ErrorMessage}></Route>
+          </div>
+        </HashRouter>
+      );
+    } else {
+      return <LoadingScreen></LoadingScreen>;
+    }
   }
 }
 
