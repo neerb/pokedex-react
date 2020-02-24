@@ -62,7 +62,7 @@ function NavToPrev(props) {
   let history = useHistory();
 
   function handleClick() {
-    history.push("/pokeinfo/" + (props.currentNum - 1));
+    history.push("/pokedex-react/pokeinfo/" + (props.currentNum - 1));
     window.location.reload();
   }
 
@@ -79,7 +79,7 @@ function NavToNext(props) {
   let history = useHistory();
 
   function handleClick() {
-    history.push("/pokeinfo/" + (props.currentNum + 1));
+    history.push("/pokedex-react/pokeinfo/" + (props.currentNum + 1));
     window.location.reload();
   }
 
