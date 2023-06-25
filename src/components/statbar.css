@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Rubik&family=Source+Sans+Pro:wght@400;600;700&family=VT323&display=swap');
+
+.statbar-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 20px;
+    width: 100%;
+    margin: 7px 0;
+}
+
+.container-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    width: 65%;
+    background-color: navy;
+    justify-content: left;
+    margin-left: auto;
+    border: 1px solid black;
+}
+
+.filler-styles {
+    height: 100%;
+    background-color: greenyellow;
+    border-radius: inherit;
+    text-align: right;
+}
+
+.filler-styles span {
+    font-family: 'Bruno Ace', cursive;
+    color: black;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.statbar-wrapper label {
+    color: white;
+    /* width: 100%; */
+    font-family: 'VT323', monospace;
+    font-size: 1.5rem;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.bar-wrapper {
+
+}
+
+.bar-fill {
+    width: 100%;
+    z-index: 200;
+}
+
+@media screen and (max-width: 550px) {
+    .container-wrapper {
+        width: 50%;
+    }
+}
+

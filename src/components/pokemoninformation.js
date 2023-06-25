@@ -3,6 +3,15 @@ import "./pokemoninformationstyles.css";
 import MoveCard from "./movecard.js";
 import LoadingScreen from "./loadingscreen";
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Fade } from "react-reveal";
+import { TypeAnimation } from "react-type-animation";
+import StatBar from "./statbar";
+import Pokemove from "./pokemove";
+import Ability from "./ability";
+import EvolutionChain from "./evolutionchain";
+import DamageRelation from "./damagerelation";
 
 const capitalize = s => {
   if (typeof s !== "string") return "";
@@ -59,154 +68,126 @@ const decimetersToCentimeters = s => {
   return s * 10.0;
 };
 
-function NavToPrev(props) {
-  let history = useHistory();
+// function NavToPrev(props) {
+//   let history = useHistory();
 
-  function handleClick() {
-    let n = props.currentNum - 1;
+//   function handleClick() {
+//     let n = props.currentNum - 1;
 
-    if (n > 0) {
-      history.push("/pokeinfo/" + n);
-      window.location.reload();
-    }
-  }
+//     if (n > 0) {
+//       history.push("/pokeinfo/" + n);
+//       window.location.reload();
+//     }
+//   }
 
-  return (
-    <button
-      className="previous-btn"
-      type="submit"
-      onClick={handleClick}
-    ></button>
-  );
-}
+//   return (
+//     <button
+//       className="previous-btn"
+//       type="submit"
+//       onClick={handleClick}
+//     ></button>
+//   );
+// }
 
-function NavToNext(props) {
-  let history = useHistory();
+// function NavToNext(props) {
+//   let history = useHistory();
 
-  function handleClick() {
-    history.push("/pokeinfo/" + (props.currentNum + 1));
-    window.location.reload();
-  }
+//   function handleClick() {
+//     history.push("/pokeinfo/" + (props.currentNum + 1));
+//     window.location.reload();
+//   }
 
-  return (
-    <button className="next-btn" type="submit" onClick={handleClick}></button>
-  );
-}
+//   return (
+//     <button className="next-btn" type="submit" onClick={handleClick}></button>
+//   );
+// }
 
-class PokemonInformation extends Component {
-  constructor(props) {
-    super(props);
+const PokemonInformation = (props) => {
+  // console.log(this.props.match.params);
 
-    console.log(this.props.match.params);
+  // this.state = {
+  //   searchedName: this.props.match.params.name,
+  //   name: null,
+  //   idnum: null,
+  //   moves: null,
+  //   abilities: null,
+  //   description: null,
+  //   genus: null,
+  //   color: null,
+  //   allinformation: null,
+  //   isLoaded: false,
+  //   error: false
+  // };
 
-    this.state = {
-      searchedName: this.props.match.params.name,
-      name: null,
-      idnum: null,
-      moves: null,
-      abilities: null,
-      description: null,
-      genus: null,
-      color: null,
-      allinformation: null,
-      isLoaded: false,
-      error: false
-    };
+  const [initialInformation, setInitialInformation] = useState(props.setPokeinformation);
+  const [information, setInformation] = useState();
+  const [sprites, setSprites] = useState([]);
+  const [spritesPos, setSpritesPos] = useState(0);
+  const [currentSprite, setCurrentSprite] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-    fetch("https://pokeapi.co/api/v2/pokemon/" + this.state.searchedName)
-      .then(res => res.json())
-      .then(result => {
-        this.setState({
-          name: result.name,
-          idnum: result.id,
-          moves: result.moves,
-          abilities: result.abilities,
-          pokemonHeight: result.height,
-          allInformation: result,
-          isLoaded: true
+  useEffect(() => {
+    if (props.setPokeinformation) {
+      fetch("https://pokeapi.co/api/v2/pokemon/" + props.setPokeinformation.name)
+        .then(res => res.json())
+        .then(result => {
+          if (result)
+            fetch(result.species.url)
+              .then(res => res.json())
+              .then(result => {
+                setInformation(result);
+                // console.log(result);
+                // console.log(initialInformation)
+              });
         });
 
-        fetch(this.state.allInformation.species.url)
-          .then(res => res.json())
-          .then(result => {
-            let flavorTextArray = result.flavor_text_entries;
-            let n = 0;
+      setSprites([initialInformation.sprites.front_default,
+      initialInformation.sprites.back_default,
+      initialInformation.sprites.front_shiny,
+      initialInformation.sprites.back_shiny,
+      initialInformation.sprites.female_default,
+      initialInformation.sprites.back_female,
+      initialInformation.sprites.front_female,
+      initialInformation.sprites.back_shiny_female,
+      initialInformation.sprites.front_shiny_female].filter(e => e));
+      setCurrentSprite(initialInformation.sprites.front_default);
 
-            while (flavorTextArray[n].language.name !== "en") {
-              n++;
-            }
+      setIsLoaded(true);
+    }
+  }, []);
 
-            if (flavorTextArray[n].language.name === "en") {
-              this.setState({ description: flavorTextArray[n].flavor_text });
-            }
-
-            let generaArray = result.genera;
-            n = 0;
-
-            while (generaArray[n].language.name !== "en") {
-              n++;
-            }
-
-            if (generaArray[n].language.name === "en") {
-              this.setState({ genus: generaArray[n].genus });
-            }
-
-            if (
-              result.color.name === "white" ||
-              result.color.name == "yellow"
-            ) {
-              let types = this.state.allInformation.types;
-
-              if (types.length >= 1) {
-                this.setState({ color: convertColor(types[0].type.name) });
-              } else {
-                this.setState({ color: "gray" });
-              }
-            } else {
-              this.setState({ color: result.color.name });
-            }
-          });
-
-        document.title = capitalize(this.state.name);
+  const fetchPokeInfo = (id) => {
+    fetch("https://pokeapi.co/api/v2/pokemon/" + id)
+      .then(res => res.json())
+      .then(result => {
+        if (result)
+          fetch(result.species.url)
+            .then(res => res.json())
+            .then(result => {
+              setInformation(result);
+              // console.log(result);
+            });
       });
-    /*
-      .catch(function() {
-        window.location.href = "/error";
-      });
-      */
-
-    this.navToPrevious = this.navToPrevious.bind(this);
-    this.navToNext = this.navToNext.bind(this);
-    this.returnAbilityString = this.returnAbilityString.bind(this);
-    this.returnTypeBoxes = this.returnTypeBoxes.bind(this);
-    this.displayPrevButton = this.displayPrevButton.bind(this);
-    this.displayPokemonSprites = this.displayPokemonSprites.bind(this);
   }
 
-  navToPrevious() {
-    if (parseInt(this.state.allInformation.id, 10) - 1 > 0) {
-      /*
-      window.location.href =
-        "/pokedex-react/#/pokeinfo/" +
-        (parseInt(this.state.allInformation.id, 10) - 1);
-      window.location.reload();
-      */
+  const navToPrevious = () => {
+    if (parseInt(information.id, 10) - 1 > 0) {
+      fetchPokeInfo(information.id - 1);
     }
   }
 
-  navToNext() {
-    window.location.href =
-      "/#/pokeinfo/" + (parseInt(this.state.allInformation.id, 10) + 1);
+  const navToNext = () => {
+    fetchPokeInfo(information.id + 1);
   }
 
-  returnToPokedex() {
-    window.location.href = "";
+  const returnToPokedex = () => {
+    props.closeFunction();
   }
 
-  returnAbilityString() {
-    let abilities = this.state.allInformation.abilities;
+  const returnAbilityString = () => {
+    let abilities = information.abilities;
 
-    console.log(abilities);
+    // console.log(abilities);
 
     if (abilities.length === 2) {
       return (
@@ -221,233 +202,276 @@ class PokemonInformation extends Component {
     }
   }
 
-  returnTypeBoxes() {
-    let types = this.state.allInformation.types;
-
-    if (types.length === 2) {
-      var orientation = "to left";
-      var colorOne = convertColor(types[0].type.name);
-      var colorTwo = convertColor(types[1].type.name);
-
-      return (
-        <React.Fragment>
-          <span
-            style={{
-              backgroundColor: colorOne,
-              textTransform: "uppercase",
-              margin: "5px",
-              padding: "2px 10px 2px 10px"
-            }}
-          >
-            {types[0].type.name}
-          </span>
-          <span
-            style={{
-              backgroundColor: colorTwo,
-              textTransform: "uppercase",
-              margin: "5px",
-              padding: "2px 10px 2px 10px"
-            }}
-          >
-            {types[1].type.name}
-          </span>
-        </React.Fragment>
-      );
-    } else if (types.length === 1) {
-      var colorOne = convertColor(types[0].type.name);
-      return (
-        <React.Fragment>
-          <span
-            style={{
-              backgroundColor: colorOne,
-              textTransform: "uppercase",
-              margin: "5px",
-              padding: "2px 10px 2px 10px"
-            }}
-          >
-            {types[0].type.name}
-          </span>
-        </React.Fragment>
-      );
-    } else {
-      return <span style={{ backgroundColor: convertColor("???") }}>???</span>;
+  const returnPokeTypes = () => {
+    if (information) {
+      // if (information.)
     }
   }
 
-  componentDidMount() {}
-
-  displayPrevButton() {
-    if (this.state.idnum > 1) {
-      return <NavToPrev currentNum={this.state.idnum}></NavToPrev>;
-    } else {
-      return null;
+  const navigateLeft = () => {
+    if (spritesPos - 1 < 0) {
+      setCurrentSprite(sprites[sprites.length - 1]);
+      setSpritesPos(sprites.length - 1);
+    }
+    else {
+      setCurrentSprite(sprites[spritesPos - 1]);
+      setSpritesPos(spritesPos - 1);
     }
   }
 
-  displayPokemonSprites() {
-    if (this.state.allInformation.sprites.front_shiny != null) {
-      return (
-        <div className="sprites">
-          <div className="two-sprites">
-            <div>
-              {" "}
-              <strong>Normal</strong>
-            </div>
-            <img src={this.state.allInformation.sprites.front_default}></img>
-            <img src={this.state.allInformation.sprites.back_default}></img>
-          </div>
-
-          <div className="two-sprites">
-            <div>
-              <strong>Shiny</strong>
-            </div>
-            <img src={this.state.allInformation.sprites.front_shiny}></img>
-            <img src={this.state.allInformation.sprites.back_shiny}></img>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="sprites">
-          <div className="one-sprite">
-            <img src={this.state.allInformation.sprites.front_default}></img>
-            <img src={this.state.allInformation.sprites.back_default}></img>
-          </div>
-        </div>
-      );
+  const navigateRight = () => {
+    if (spritesPos + 1 > sprites.length - 1) {
+      setCurrentSprite(sprites[0]);
+      setSpritesPos(0);
+    }
+    else {
+      setCurrentSprite(sprites[spritesPos + 1]);
+      setSpritesPos(spritesPos + 1);
     }
   }
 
-  showInformation() {
-    const { allInformation } = this.state;
+  const handleClickOutside = () => {
+    returnToPokedex();
+  };
 
-    console.log(allInformation.types);
+  const useOutsideClick = () => {
+    const ref = React.useRef();
 
-    let types = allInformation.types;
-    const bground = document.getElementById("pokemon-information-background");
+    React.useEffect(() => {
+      const handleClick = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          returnToPokedex();
+        }
+      };
 
-    if (types.length === 2) {
-      var orientation = "to left";
-      var colorOne = convertColor(types[0].type.name);
-      var colorTwo = convertColor(types[1].type.name);
+      document.addEventListener('click', handleClick);
 
-      if (bground !== null) {
-        bground.style.background =
-          "linear-gradient(" +
-          orientation +
-          ", " +
-          colorOne +
-          ", " +
-          colorTwo +
-          ")";
-      }
-    } else if (types.length === 1) {
-      if (bground !== null) {
-        bground.style.background = convertColor(
-          allInformation.types[0].type.name
-        );
-      }
-    } else {
-      if (bground !== null) {
-        bground.style.background = convertColor("???");
-      }
-    }
+      return () => {
+        document.removeEventListener('click', handleClick);
+      };
+    }, [ref]);
+    return ref;
+  };
 
-    if (this.state.isLoaded === true && this.state.error === false) {
-      return (
-        <div className="pokeinfo">
-          <div className="pokemon-idnum">
-            <span>#{this.state.idnum}</span>
-          </div>
-          <div className="info-box">
-            <div className="typeandstat-info">
-              <div className="types">{this.returnTypeBoxes()}</div>
-            </div>
+  const ref = useOutsideClick(handleClickOutside);
 
-            {this.displayPokemonSprites()}
-          </div>
-          <div className="short-description">
-            <div className="genus-text">{this.state.genus}</div>
+  const formatGeneration = (g) => {
+    let newstr = '';
 
-            <div className="flavor-text">{this.state.description}</div>
-          </div>
-          <div className="section-box" style={{ background: this.state.color }}>
-            {" "}
-            <span>Profile</span>
-          </div>
-          <div className="profile-info-box">
-            <strong>Height:</strong>
-
-            <span>
-              {decimetersToCentimeters(this.state.allInformation.height)}cm
-            </span>
-
-            <strong>Weight:</strong>
-
-            <span>
-              {hectogramsToPounds(this.state.allInformation.weight)}kgs
-            </span>
-          </div>
-          <div className="profile-info-box">
-            <strong>Abilities:</strong>
-
-            <span>{this.returnAbilityString()}</span>
-
-            <strong>Base Experience:</strong>
-
-            <span>{this.state.allInformation.base_experience}</span>
-          </div>
-          <div className="section-box" style={{ background: this.state.color }}>
-            {" "}
-            <span>Moves</span>
-          </div>
-          <div className="moves-box">
-            <ul>
-              {this.state.moves.map(m => (
-                <div key={m.move.name}>
-                  <MoveCard name={m.move.name} url={m.move.url}></MoveCard>
-                </div>
-              ))}
-            </ul>
-          </div>
-          <br></br>
-        </div>
-      );
-    }
+    return g.substring(0, g.indexOf('-')) + g.substring(g.indexOf('-'), g.length).toUpperCase();
   }
 
-  render() {
-    if (this.state.isLoaded === true) {
-      return (
-        <React.Fragment>
+  return (
+    isLoaded ?
+      (<Fade opposite top duration={300} key={initialInformation}>
+        <div className="pokeinfo-wrapper">
           <div
             className="pokemon-information-background"
             id="pokemon-information-background"
           >
             <div className="navbar-top">
-              <div className="pokemon-name"> {this.state.name}</div>
-
-              {this.displayPrevButton()}
-
-              <NavToNext currentNum={this.state.idnum}></NavToNext>
+              <div className="pokemon-name"> {initialInformation.name}</div>
+              {/* {this.displayPrevButton()} */}
+              {/* <NavToNext currentNum={idNum}></NavToNext> */}
             </div>
-            {this.showInformation()}
+            {/* {showInformation()} */}
 
-            <div className="return-link">
-              <input
+            {information && initialInformation ? (
+              <div className="info-scroller">
+                {/* <div className='prev' onClick={navToPrevious}>
+                </div> */}
+                <div className="information-form" ref={ref}>
+                  <div className="pokedexlights">
+                    <img src={require("./images/pokedexlight.png")} className="pokelight1" />
+                    <img src={require("./images/redlight.png")} className="pokelight2" />
+                    <img src={require("./images/yellowlight.png")} className="pokelight2" />
+                    <img src={require("./images/greenlight.png")} className="pokelight2" />
+                    <hr></hr>
+                    <label>#{information ? information.id : null}</label>
+                    <hr></hr>
+                  </div>
+                  <div className="pokeimage-window-panel">
+                    <div className="upperpanel-wrapper">
+                      <img className='top-lights' src={require("./images/redlight.png")} />
+                      <img className='top-lights' src={require("./images/redlight.png")} />
+                    </div>
+
+                    <div className="pokeimage-screen">
+                      <div className="pokeimage-screen_types">
+                        <div className="poketype" style={{ background: convertColor(initialInformation.types[0].type.name) }}>
+                          {initialInformation.types[0].type.name}
+                        </div>
+                        {initialInformation.types[1] ?
+                          (<div className="poketype" style={{ background: convertColor(initialInformation.types[1].type.name) }}>
+                            {initialInformation.types[1].type.name}
+                          </div>) : (<></>)}
+                      </div>
+
+                      {/* Image gallery */}
+                      <div className="image-gallery">
+                        <div className="gallery-left">
+                          <img src={require("./images/left-scroll.png")} onClick={navigateLeft}></img>
+                        </div>
+                        <div className="image-gallery_wrapper">
+                          <div className="image-gallery_background">
+                            <Fade duration={400}>
+                              <img key={currentSprite} className="current-sprite" src={currentSprite}>
+                              </img>
+                            </Fade>
+                          </div>
+                        </div>
+                        <div className="gallery-right">
+                          <img src={require("./images/right-scroll.png")} onClick={navigateRight}></img>
+                        </div>
+                      </div>
+
+                      <div className="generation-text">
+                        <label>
+                          {formatGeneration(information.generation.name)}
+                        </label>
+                      </div>
+
+                      {/* Flavor Text */}
+                      {information.flavor_text_entries[0] ?
+                        (<div className="flavor-text">
+                          <label>
+                            <TypeAnimation sequence={["> " + information.flavor_text_entries.filter(e => e.language.name === 'en')[0].flavor_text]} cursor={true} speed={70} />
+                          </label>
+                        </div>) : null}
+
+                    </div>
+                    {/* Posture */}
+
+                    <div className="underscreen-decor">
+                      <img className="underscreen-light" src={require("./images/redlight.png")} />
+                      <img className="hamburger-decor" src={require("./images/hamburger.png")} />
+                    </div>
+
+                  </div>
+                  {/* Stat bars */}
+                  <div className="stats-label">
+                    <label className="stat-label">Stats</label>
+                    <hr></hr>
+                  </div>
+                  <div className="base-stat-wrapper">
+                    {initialInformation.stats.map(s => (<StatBar key={s.stat.name} stat={s} />))}
+                  </div>
+
+                  <div className="misc-info-wrapper">
+                    <div className="misc-info">
+                      <label>Height: <span>{initialInformation.height}</span></label>
+                      <hr></hr>
+                      <label>Weight: <span>{initialInformation.weight}</span></label>
+                    </div>
+
+
+                    <div className="misc-info">
+                      <label>Posture: <span>{information.shape.name}</span></label>
+                      <hr></hr>
+                      <label>Capture Rate: <span>{information.capture_rate}</span></label>
+                    </div>
+                  </div>
+
+
+                  {/* Abilities */}
+                  {initialInformation.abilities && initialInformation.abilities.length > 0 ?
+                    (<div className="stats-label">
+                      <label className="stat-label">Abilities</label>
+                      <hr></hr>
+                    </div>)
+                    :
+                    (<></>)}
+
+                  {initialInformation.abilities && initialInformation.abilities.length > 0 ?
+                    (<div className="abilities-wrapper">
+                      {initialInformation.abilities.map(s => (<Ability key={s.ability.name} abilityobj={s} />))}
+                    </div>)
+                    :
+                    (<></>)}
+
+                  {/* Habitat */}
+                  {information.habitat ?
+                    (<div className="stats-label">
+                      <label className="stat-label">Habitat</label>
+                      <hr></hr>
+                    </div>) : (<></>)}
+
+                  {information.habitat ?
+                    (<div className="habitat-wrapper">
+                      <div className="habitat-screen">
+                        <div className="habitat-info">
+                          <Fade bottom>
+                            <img className="habitat-img" src={require("./images/habitats/" + information.habitat.name + ".png")} />
+                          </Fade>
+                          <TypeAnimation sequence={["> " + ((information.habitat.name === 'rare') ? 'origin-unknown' : information.habitat.name)]} cursor={true} speed={70} />
+                        </div>
+                      </div>
+                    </div>) : (<></>)}
+
+
+
+
+                  {/* Evolutions */}
+                  {information.evolution_chain ?
+                    (
+                      <React.Fragment>
+                        <div className="stats-label">
+                          <label className="stat-label">Evolutions</label>
+                          <hr></hr>
+                        </div>
+
+                        <div className="evolutions-wrapper">
+                          <EvolutionChain setPokemon={props.passFunction} chainUrl={information.evolution_chain.url} />
+                        </div>
+                      </React.Fragment>
+                    ) : (<></>)}
+
+                  {/* Moves */}
+                  <div className="stats-label">
+                    {/* <hr></hr> */}
+                    <label className="stat-label">Moves</label>
+                    <hr></hr>
+                  </div>
+
+                  <div className="moves-wrapper">
+                    {initialInformation.moves.map(s => (<Pokemove key={s.move.name} moveobj={s} />))}
+                  </div>
+
+                  {/* Damage Relation Info */}
+                  {initialInformation.types ?
+                    (
+                      <React.Fragment>
+                        <div className="stats-label">
+                          {/* <hr></hr> */}
+                          <label className="stat-label">Damage Relations</label>
+                          <hr></hr>
+                        </div>
+
+                        <div className="damage-info">
+                          <DamageRelation type={initialInformation.types}></DamageRelation>
+                        </div>
+                      </React.Fragment>
+                    ) : (<></>)
+                  }
+                </div>
+              </div>) : (<LoadingScreen />)}
+
+            <div className="return-link" onClick={returnToPokedex}>
+              {/* <input
                 className="return-button"
                 type="submit"
                 value="Return to Pokédex"
-                onClick={this.returnToPokedex}
-              ></input>
+                onClick={returnToPokedex}
+              ></input> */}
+              <img src={require('./images/uparrow.png')} />
+              <img src={require('./images/uparrow.png')} />
+              <img src={require('./images/uparrow.png')} />
             </div>
           </div>
-        </React.Fragment>
-      );
-    } else {
-      return <LoadingScreen></LoadingScreen>;
-    }
-  }
+        </div>
+      </Fade >)
+      :
+      (<LoadingScreen />)
+  );
 }
-
 export default PokemonInformation;

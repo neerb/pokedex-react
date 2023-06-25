@@ -29,3 +29,12 @@
   width: 10%;
   background-color: black;
 }
+
+.hr-bar {
+  align-self: center;
+  border: 2px solid gold;
+  border-radius: 20px;
+  margin: 0 8px 0 8px;
+  width: 10%;
+  height: 0px;
+}

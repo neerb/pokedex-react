@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Rubik&family=Source+Sans+Pro:wght@400;600;700&family=VT323&display=swap');
+
+.damage-relations {
+    font-family: 'VT323', monospace;
+    width: 100%;
+}
+
+.damage-modifier-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.relation {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    font-weight: 100;
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+    justify-content: space-between;
+}
+
+.relation-info {
+    display: flex;
+    white-space: nowrap;
+    align-items: baseline;
+    margin-bottom: 3px;
+    margin: auto 0;
+}
+
+.tbox {
+    text-transform: capitalize;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.65rem;
+    letter-spacing: 2px;
+    font-weight: 100;
+    padding: 5px 10px;
+    border: 3px black solid;
+    border-radius: 10px;
+    margin-right: 7px;
+    margin-top: 3px;
+  }
+
+  .relation-types {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.hr-bar {
+    align-self: center;
+    border: 2px dotted gold;
+    border-radius: 20px;
+    margin: 0 8px 0 8px;
+    height: 0px;
+    width: 100%;
+  }
+
+@media screen and (max-width: 650px) {
+    .relation-info {
+        white-space: pre-wrap;
+    }
+  }
+
+  @media screen and (max-width: 845px) {
+    .relation {
+        flex-direction: row;
+    }
+  }
+
+  @media screen and (max-width: 1275px) and (min-width: 845px) {
+    .relation {
+        flex-direction: column;
+    }
+
+    .hr-bar {
+        width: 90%;
+        margin-top: 3px;
+    }
+  }
+
+
+
+  

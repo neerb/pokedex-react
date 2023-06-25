@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=VT323&display=swap');
+
+.center-loading {
+    position: absolute;
+  
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateY(25%);
+  }
+  
+  .loading-screen {
+    text-align: center;
+    color: white;
+  }
+  
+  .loading-screen-image {
+    background-image: url("./images/pokeball-png.png");
+    background-size: contain;
+    height: 200px;
+    width: 200px;
+    -webkit-animation: rotate 2s forwards infinite;
+    animation: rotate 2s forwards infinite;
+    margin: auto;
+  }
+
+  .loading-screen-image-smaller {
+    background-image: url("./images/pokeball-png.png");
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+    -webkit-animation: rotate 2s forwards infinite;
+    animation: rotate 2s forwards infinite;
+    margin: auto;
+  }
+
+.load-text {
+    font-family: 'VT323', monospace;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    font-weight: 300;
+}
+
+.load-text-smaller {
+    font-family: 'VT323', monospace;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    font-weight: 300;
+    color: white;
+}
+
+@media screen and (max-width: 420px) {
+    .load-text-smaller {
+        font-size: 1rem;
+    }
+
+    .load-text {
+        font-size: 1.5rem;
+    }
+}
+
+.bottom-loading {
+    height: 100%;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    vertical-align: bottom;
+    transform: translateY(25%);
+}
+
+.load-bottom-screen {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.noresults {
+    height: 100%;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    vertical-align: bottom;
+    transform: translateY(25%);
+}
