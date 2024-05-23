@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Rubik&family=Source+Sans+Pro:wght@400;600;700&family=VT323&display=swap');
+
+.move-toggle {
+    display: flex;
+    flex-direction: column;
+}
+
+.move {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 6px 10px;
+    height: 100%;
+    /* align-items: stretch; */
+}
+
+.move:hover {
+    background: darkred;
+}
+
+.hr-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin: 0 7px 0 5px;
+}
+
+.move hr {
+    border: 2px solid rgb(47, 231, 255);
+    border-radius: 3px;
+    height: 0;
+    width: 100%;
+}
+
+.move span {
+    border: 2px solid gold;
+}
+
+.move label {
+    font-family: 'VT323', monospace;
+    font-size: 1.75rem;
+    text-transform: capitalize;
+    /* color:rgb(0, 247, 255); */
+    color: rgb(255, 237, 134);
+    white-space: nowrap;
+}
+
+.move-info {
+    padding: 0px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.move-flavor-text {
+    font-family: 'VT323', monospace;
+    font-size: 1.75rem;
+    font-style: italic;
+    /* color:rgb(0, 247, 255); */
+    color: gold;
+    text-decoration: underline;
+}
+
+.move-accuracy {
+    font-family: 'Bruno Ace', cursive;
+    color: white;
+    /* margin-left: auto; */
+    padding-right: 5px;
+    font-size: 1rem;
+    font-weight: 300;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    margin: 2px 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.move-type {
+    width: fit-content;
+    text-align: center;
+    color: white;
+    text-transform: capitalize;
+    border-radius: 0 3px 3px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.move-type div {
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin: auto auto;
+    white-space: nowrap;
+}

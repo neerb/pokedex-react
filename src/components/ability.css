@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Rubik&family=Source+Sans+Pro:wght@400;600;700&family=VT323&display=swap');
+
+.ability {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px 0px;
+}
+
+.ability label {
+    font-family: 'Bruno Ace', cursive;
+    text-transform: capitalize;
+    font-style: italic;
+    color: rgb(23, 228, 255);
+    font-size: 2.25rem;
+    text-align: center;
+    margin-bottom: 5px;
+    padding: 0 20px;
+    -webkit-text-stroke: 1.5px black; /* width and color */
+}
+
+.ability div {
+    font-size: 1.5rem;
+    font-family: 'VT323', monospace;
+    text-align: center;
+    color: rgb(255, 237, 134);
+    padding: 0 20px;
+}
