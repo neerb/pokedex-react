@@ -17,8 +17,9 @@ const StatBar = (props) => {
         <div className="statbar-wrapper" key={props.stat.stat.name}>
             <label>
                 {props.stat.stat.name.toUpperCase()}
-
             </label>
+
+            {/* <hr className='stat-spacer'></hr> */}
 
             <div className="container-wrapper">
                 <div className="filler-styles" style={fillerStyles}>

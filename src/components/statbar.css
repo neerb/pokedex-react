@@ -7,7 +7,7 @@
     justify-content: space-between;
     height: 20px;
     width: 100%;
-    margin: 7px 0;
+    margin: 7px auto;
 }
 
 .container-wrapper {
@@ -15,8 +15,8 @@
     flex-direction: row;
     height: 20px;
     border-radius: 10px;
-    width: 65%;
-    background-color: navy;
+    min-width: 65%;
+    background-color: #00008f;
     justify-content: left;
     margin-left: auto;
     border: 3px solid black;
@@ -44,6 +44,7 @@
     align-content: center;
     justify-content: center;
     transform: translateY(-5px);
+    margin: auto 0;
     /* margin: 0 0 10px 0; */
 }
 
@@ -54,6 +55,7 @@
     font-size: 1.5rem;
     text-align: left;
     white-space: nowrap;
+    /* margin-left: auto; */
 }
 
 .bar-wrapper {

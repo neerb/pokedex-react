@@ -132,7 +132,10 @@
 
 .pokeimage-screen {
   width: 85%;
-  background-color: darkslateblue;
+  /* background-color: darkslateblue; */
+  background: linear-gradient(0deg, rgba(60,98,195,1) 0%, rgba(99,127,200,1) 25%, rgba(60,98,195,1) 49%, rgba(60,98,195,1) 51%, rgba(99,127,200,1) 75%, rgba(60,98,195,1) 100%);
+  /* background-size: 1em 40em; */
+  /* background-size: 1 200%; */
   border: black 4px inset;
   /* height: 600px; */
   margin: 0 auto 10px auto;
@@ -143,18 +146,59 @@
   justify-content: space-between;
 }
 
+.gen-type-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 3px 8px 4px 7px;
+  margin: 0 0 10px 0;
+  background-color: #ffeb7a;
+  border-radius: 8px 8px 0 0 ;
+  border-bottom: 3px solid #3a3a3a;
+  box-shadow: 0 -3px 10px #3a3a3a;
+}
+
+.generation {
+  align-content: center;
+  font-family: 'vt323', monospace;
+  text-transform: capitalize;
+  font-size: 1.2em;
+  background: #FFE79D;
+  padding: 2px 3px;
+  border-radius: 16px;
+  border: 3px solid #B89726;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.pokeball-pin {
+  margin: auto 0;
+  height: 18px;
+  width: 18px;
+  background: url(./images/sepiaball.webp);
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* -webkit-filter: drop-shadow(-1px 1px 3px rgba(0, 0, 0, .8)); */
+  /* filter: drop-shadow(-1px 1px 3px rgba(0, 0, 0, .8)); */
+}
+
 
 .pokeimage-screen_types {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  /* width: 100%; */
+  gap: 3px;
   /* height: 20%; */
-  justify-content: center;
+  justify-content: flex-end;
   vertical-align: middle;
 }
 
 .poketype {
-  border-radius: 10px;
+  border-radius: 8px;
   color: white;
   text-align: center;
   vertical-align: middle;
@@ -164,9 +208,9 @@
   letter-spacing: 1px;
   text-transform: capitalize;
   color: white;
-  padding: 5px 10px 5px 10px;
-  margin: 10px 2px;
-  border: 1px solid white;
+  padding: 4px 8px 4px 8px;
+  /* margin: 10px 2px; */
+  border: 2px solid #000;
 }
 
 .image-gallery {
@@ -358,31 +402,65 @@
 }
 
 .stats-label {
-  margin-top: 5px;
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
   width: 90%;
   white-space: nowrap;
+  color: black;
+  padding: 4px 6px;
+  background-image: linear-gradient(180deg, #b3b3b3, #4d4d4d 47%, #4d4d4d 53%, #c5c5c5);
+  border: 4px outset #c5c5c5;
+  border-radius: 10px;
+  box-sizing: border-box;
 }
 
 .stats-label hr {
   align-self: center;
   border: 2px solid gold;
+  box-shadow: 0 0 10px gold;
+  /* background: #000; */
   border-radius: 20px;
   margin: 0 8px 0 8px;
   width: 100%;
   height: 0px;
 }
 
-
-
 .stats-label .stat-label {
   font-family: 'Bruno Ace', cursive;
-  color: white;
+  color: #FFF;
+  text-shadow: 1px 1px 5px #fff;
   font-size: 1.5em;
   letter-spacing: 3px;
   align-self: center;
   font-style: bold;
+}
+
+.title-grouping {
+  background: #00000050;
+  box-sizing: border-box;
+  border-radius: 6px;
+  padding: 4px 6px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  border: 2px inset #c0c0c0;
+  margin: 2px 4px;
+  gap: 0;
+}
+
+.bolt {
+  /* border-radius: 100%; */
+  /* text-align: center; */
+  margin: auto 3px;
+  height: 18px;
+  width: 18px;
+  background: url(./images/usedrivot.webp);
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  -webkit-filter: drop-shadow(-1px 1px 3px rgba(0, 0, 0, .8));
+  filter: drop-shadow(-1px 1px 3px rgba(0, 0, 0, .8));
 }
 
 .abilities-wrapper {
@@ -403,8 +481,8 @@
   margin: 20px;
   width: 300px;
   height: 200px;
-  background: rgb(0, 63, 0);
-  border: 3px solid greenyellow;
+  background: #003f00;
+  border: 3px solid #adff2f;
   background-image: url("./images/topograph.png");
   background-size: contain;
   display: flex;
@@ -432,6 +510,8 @@
   margin: 0 auto 3px auto;
   object-fit: contain;
   background: rgb(0, 63, 0);
+  background-image: linear-gradient(#fffc2fa1 1px, transparent 0), linear-gradient(90deg, #fffc2fa1 1px, transparent 0);
+  background-size: 1em 1em;
   border-radius: 20px;
   border: 3px solid gold;
   padding: 10px;
@@ -529,7 +609,7 @@
   }
 
   .flavor-text label {
-   font-size: 1.2rem;
+    font-size: 1.2rem;
   }
 
   .fill-space-flavor {

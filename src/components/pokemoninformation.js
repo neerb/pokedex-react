@@ -299,7 +299,28 @@ const PokemonInformation = (props) => {
                     </div>
 
                     <div className="pokeimage-screen">
-                      <div className="pokeimage-screen_types">
+
+                      <div className="gen-type-wrap">
+                        <div className="generation">
+                          <div className="pokeball-pin" style={{ marginRight: "4px" }}></div>
+                          {initialInformation.name}
+                          <div className="pokeball-pin" style={{ marginLeft: "4px" }}></div>
+                        </div>
+
+                        {/* <hr style={{ width: "100%", border: "2px dashed lightblue", height: 0, margin: "auto 3px" }}></hr> */}
+
+                        <div className="pokeimage-screen_types">
+                          <div className="poketype" style={{ background: convertColor(initialInformation.types[0].type.name) }}>
+                            {initialInformation.types[0].type.name}
+                          </div>
+                          {initialInformation.types[1] ?
+                            (<div className="poketype" style={{ background: convertColor(initialInformation.types[1].type.name) }}>
+                              {initialInformation.types[1].type.name}
+                            </div>) : (<></>)}
+                        </div>
+                      </div>
+
+                      {/* <div className="pokeimage-screen_types">
                         <div className="poketype" style={{ background: convertColor(initialInformation.types[0].type.name) }}>
                           {initialInformation.types[0].type.name}
                         </div>
@@ -307,16 +328,14 @@ const PokemonInformation = (props) => {
                           (<div className="poketype" style={{ background: convertColor(initialInformation.types[1].type.name) }}>
                             {initialInformation.types[1].type.name}
                           </div>) : (<></>)}
-                      </div>
+                      </div> */}
 
                       {/* Image gallery */}
                       <div className="image-gallery">
                         <div className="gallery-left">
-
                           <div className="left-arrow-clip" onClick={navigateLeft}></div>
-
-                          {/* <img src={require("./images/left-scroll.png")} onClick={navigateLeft}></img> */}
                         </div>
+
                         <div className="image-gallery_wrapper">
                           <div className="image-gallery_background">
                             <Fade duration={400}>
@@ -325,10 +344,9 @@ const PokemonInformation = (props) => {
                             </Fade>
                           </div>
                         </div>
+
                         <div className="gallery-right">
                           <div className="right-arrow-clip" onClick={navigateRight}></div>
-
-                          {/* <img src={require("./images/right-scroll.png")} onClick={navigateRight}></img> */}
                         </div>
                       </div>
 
@@ -361,8 +379,12 @@ const PokemonInformation = (props) => {
                   </div>
                   {/* Stat bars */}
                   <div className="stats-label">
-                    <label className="stat-label">Stats</label>
-                    <hr></hr>
+                    <div className="bolt" />
+                    <div className="title-grouping">
+                      <label className="stat-label">Stats</label>
+                      <hr></hr>
+                    </div>
+                    <div className="bolt" />
                   </div>
                   <div className="base-stat-wrapper">
                     {initialInformation.stats.map(s => (<StatBar key={s.stat.name} stat={s} />))}

@@ -425,7 +425,7 @@ const Pokedex = () => {
                     endMessage={
                       <NoResults />
                     }
-                    style={{ overflow: 'hidden' }}
+                    style={{ overflow: "unset" }}
                   >
                     <div className="grid-wrapper">
                       <div className="grid">
