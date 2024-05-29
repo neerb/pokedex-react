@@ -270,7 +270,7 @@ const PokemonInformation = (props) => {
             id="pokemon-information-background"
           >
             <div className="navbar-top">
-              <div className="pokemon-name"> {initialInformation.name}</div>
+              <div className="pokemon-name"> {initialInformation.name ? initialInformation.name : ""}</div>
               {/* {this.displayPrevButton()} */}
               {/* <NavToNext currentNum={idNum}></NavToNext> */}
             </div>
@@ -399,9 +399,23 @@ const PokemonInformation = (props) => {
 
 
                     <div className="misc-info">
-                      <label>Posture: <span>{information.shape.name}</span></label>
-                      <hr></hr>
-                      <label>Capture Rate: <span>{information.capture_rate}</span></label>
+                      {
+                        information.shape ?
+                          <>
+                            <label>Posture: <span>{information.shape.name}</span></label>
+                            <hr></hr>
+                          </>
+                          :
+                          <></>
+                      }
+                      {
+                        information.capture_rate ?
+                          <>
+                            <label>Capture Rate: <span>{information.capture_rate}</span></label>
+                          </>
+                          :
+                          <></>
+                      }
                     </div>
                   </div>
 

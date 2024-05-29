@@ -158,6 +158,8 @@
   border-radius: 8px 8px 0 0 ;
   border-bottom: 3px solid #3a3a3a;
   box-shadow: 0 -3px 10px #3a3a3a;
+  text-align: center;
+  gap: 6px;
 }
 
 .generation {
@@ -202,6 +204,7 @@
   color: white;
   text-align: center;
   vertical-align: middle;
+  margin: auto 0;
   /* margin: auto; */
   font-family: 'VT323', monospace;
   font-size: 1rem;
