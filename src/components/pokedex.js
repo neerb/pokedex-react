@@ -12,6 +12,7 @@ import { Route, Routes, BrowserRouter, Router, Link } from "react-router-dom";
 import ReactList from "react-list";
 import LazyList from "react-list-lazy-load";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useNavigate, useParams } from "react-router-dom";
 
 // import {
 //   BrowserRouter,
@@ -59,7 +60,7 @@ const Pokedex = () => {
   const [cf, setCf] = useState(false);
   const [sortMethod, setSortMethod] = useState('Lowest - Highest');
   const [hasMoreToLoad, setHasMoreToLoad] = useState(true);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(false);
@@ -126,8 +127,11 @@ const Pokedex = () => {
   };
 
   const setPokemon = (pokeinfo) => {
-    setSelectedPokemon(pokeinfo);
-    setPokemonClicked(true);
+    // setSelectedPokemon(pokeinfo);
+    console.log(pokeinfo);
+    // setPokemonClicked(true);
+    navigate('/' + pokeinfo.name);
+    console.log('navigating to ' + pokeinfo.name)
 
     document.title = capitalize(pokeinfo.name);
   }
@@ -516,10 +520,13 @@ const Pokedex = () => {
       </React.Fragment >
 
       {
-        pokemonClicked ? <PokemonInformation passFunction={setPokemon} setPokeinformation={selectedPokemon} key={selectedPokemon} closeFunction={closePokemon}>
-
-        </PokemonInformation> : <></>}
-      {/* </HashRouter > */}
+        // pokemonClicked ? 
+        // <PokemonInformation passFunction={setPokemon} setPokeinformation={selectedPokemon} key={selectedPokemon} closeFunction={closePokemon}>
+        // </PokemonInformation> 
+        // : 
+        // <></>
+        <></>
+      }
     </div >)
   );
 }

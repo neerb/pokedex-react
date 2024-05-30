@@ -59,6 +59,7 @@
   border-bottom: 3px solid gold;
   border-left: 3px solid gold;
   border-right: 3px solid gold;
+  box-shadow: 0 0px 10px gold;
 
   display: flex;
   flex-direction: column;
@@ -92,7 +93,7 @@
 }
 
 .pokeimage-window-panel {
-  margin: 0px 0 0 0;
+  margin: 0px 0 20px 0;
   width: 400px;
   height: 600px;
   background: #FFFDD0;
@@ -103,7 +104,7 @@
   flex-direction: column;
   justify-content: center;
   box-shadow: 0px 0px 6px rgba(0,0,0,.75);
-  filter: drop-shadow(2px 4px 0 rgba(0,0,0,.5));
+  filter: drop-shadow(6px 8px 0 rgba(0,0,0,.5));
 }
 
 @media screen and (max-width: 420px) {
@@ -142,7 +143,7 @@
   border-radius: 10px 10px 10px 40px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
 }
 
@@ -188,6 +189,18 @@
   /* filter: drop-shadow(-1px 1px 3px rgba(0, 0, 0, .8)); */
 }
 
+.pokeball-pin2 {
+  margin: auto 0;
+  height: 18px;
+  width: 18px;
+  background: url(./images/pokeball-small.webp);
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* -webkit-filter: drop-shadow(-1px 1px 3px rgba(0, 0, 0, .8)); */
+  /* filter: drop-shadow(-1px 1px 3px rgba(0, 0, 0, .8)); */
+}
+
 
 .pokeimage-screen_types {
   display: flex;
@@ -209,28 +222,49 @@
   font-family: 'VT323', monospace;
   font-size: 1rem;
   letter-spacing: 1px;
-  text-transform: capitalize;
+  text-transform: uppercase;
   color: white;
   padding: 4px 8px 4px 8px;
   /* margin: 10px 2px; */
   border: 2px solid #000;
 }
 
-.image-gallery {
+.pokemon-floaters-info-wrap {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 8px 12px 8px 12px;
+}
+
+.image-gallery {
+  display: flex;
+  flex-direction: column;
+  width: auto;
   justify-content: space-evenly;
-  
+  gap: 10px;
+}
+
+.image-gallery-nav {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
 }
 
 .image-gallery_wrapper {
   text-align: center;
-  width: 150px;
+  width: 150px; 
+  background: url(./images/spriteball.webp), #FFF;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .image-gallery_background {
-  background: #FFF;
+  /* background: #FFF; */
+
   box-sizing: border-box;
   background-image: linear-gradient(#C8E2F0 3px, transparent 0);
   /* background-image: linear-gradient(#4b2121 3px, transparent 0), linear-gradient(90deg, #4b2121 3px, transparent 0); */
@@ -262,11 +296,15 @@
 }
 
 .left-arrow-clip {
-  height: 35px;
-  width: 35px;
+  height: 20px;
+  width: 25px;
   clip-path: polygon(100% 0%, 75% 50%, 100% 100%, 25% 100%, 0% 50%, 25% 0%);
   background: gold;
   box-shadow: 0 0 10px #000;
+}
+
+.left-arrow-clip:hover {
+  background-color: crimson;
 }
 
 .gallery-right {
@@ -277,12 +315,119 @@
 }
 
 .right-arrow-clip {
-  height: 35px;
-  width: 35px;
-  margin: 0 auto 0 0;
+  height: 20px;
+  width: 25px;
   clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
   background: gold;
   box-shadow: 0 0 10px #000;
+}
+
+.right-arrow-clip:hover {
+  background-color: crimson;
+}
+
+.floating-misc-info {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.name-id-floater {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border: 2px solid #000;
+  /* height: auto; */
+  width: fit-content;
+  height: fit-content;
+  /* margin:; */
+  border-radius: 4px;
+  box-shadow: 4px 4px 0px #00000050;
+  font-family: 'vt323', monospace;
+  font-size: 1.3em;
+  width: 100%;
+}
+
+
+.idnamefloat {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  color: #fff;
+  padding: 2px 2px;
+  background: red;
+  border-bottom: 4px solid pink;
+  text-shadow: 2px 1px 0px #000000;
+  text-transform: capitalize;
+}
+
+.funfloat {
+  color: #000;
+  padding: 2px 2px;
+  background: #fff;
+  text-shadow: 2px 0 0px #00000048;
+}
+
+.height-weight-floater {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF;
+  border: 2px solid #000;
+  /* height: auto; */
+  width: fit-content;
+  height: fit-content;
+  padding: 2px 4px;
+  /* margin:; */
+  border-radius: 4px;
+  box-shadow: 4px 4px 0px #00000050;
+}
+
+.wh-info {
+  font-family: 'vt323', monospace;
+  font-size: 1.2em;
+  text-shadow: 2px 0 0px #00000048;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+}
+
+.height-weight-floater-separator {
+  height: 0px;
+  box-sizing: border-box;
+  border: 1px dashed rgba(97, 97, 97, 0.329);
+  width: 100%;
+}
+
+.cry-floater-wrap {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF;
+  outline: 2px solid #000;
+  border-top:5px solid red;
+  box-sizing: border-box;
+  /* height: auto; */
+  width: fit-content;
+  height: fit-content;
+  padding: 2px 4px;
+  /* margin:; */
+  border-radius: 4px;
+  box-shadow: 4px 4px 0px #00000050;
+}
+
+.cry-icon {
+  width: 25px;
+  height: 25px;;
+}
+
+.cry-icon:hover {
+  color: crimson;
+  scale: 1.1;
+    /* background-color: #000; */
 }
 
 @media screen and (min-width: 1800px) {
@@ -338,7 +483,7 @@
 }
 
 .flavor-text {
-  width: 80%;
+  /* width: 100%; */
   /* height: 60px; */
   height: fit-content;
   color: green;
@@ -356,7 +501,7 @@
   outline: 2px solid #B0F8F8;
   border-radius: 6px;
   background-color: #68B0F8;
-  filter: drop-shadow(0px 0px 2px rgba(0,0,0,.5));
+  filter: drop-shadow(6px 6px 0px rgba(0,0,0,.4));
 }
 
 .flavor-text label {
@@ -928,6 +1073,7 @@
   /* position: fixed;
   top: 0;
   left: 0; */
+  z-index: 1;
   width: 100%;
   height: 35px;
   background-color: black;

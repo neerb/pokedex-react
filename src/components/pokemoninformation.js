@@ -12,6 +12,8 @@ import Pokemove from "./pokemove";
 import Ability from "./ability";
 import EvolutionChain from "./evolutionchain";
 import DamageRelation from "./damagerelation";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { AiTwotoneSound } from "react-icons/ai";
 
 const capitalize = s => {
   if (typeof s !== "string") return "";
@@ -119,69 +121,89 @@ const PokemonInformation = (props) => {
   //   error: false
   // };
 
-  const [initialInformation, setInitialInformation] = useState(props.setPokeinformation);
+  const [initialInformation, setInitialInformation] = useState(null);
   const [information, setInformation] = useState();
   const [sprites, setSprites] = useState([]);
   const [spritesPos, setSpritesPos] = useState(0);
   const [currentSprite, setCurrentSprite] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const { name, pokeinfo } = useParams();
 
   useEffect(() => {
-    if (props.setPokeinformation) {
-      fetch("https://pokeapi.co/api/v2/pokemon/" + props.setPokeinformation.name)
-        .then(res => res.json())
-        .then(result => {
-          if (result)
-            fetch(result.species.url)
-              .then(res => res.json())
-              .then(result => {
-                setInformation(result);
-                // console.log(result);
-                // console.log(initialInformation)
-              });
-        });
+    console.log(name);
 
-      setSprites([initialInformation.sprites.front_default,
-      initialInformation.sprites.back_default,
-      initialInformation.sprites.front_shiny,
-      initialInformation.sprites.back_shiny,
-      initialInformation.sprites.female_default,
-      initialInformation.sprites.back_female,
-      initialInformation.sprites.front_female,
-      initialInformation.sprites.back_shiny_female,
-      initialInformation.sprites.front_shiny_female].filter(e => e));
-      setCurrentSprite(initialInformation.sprites.front_default);
-
+    if (name != "home") {
+      fetchPokeInfo(name);
       setIsLoaded(true);
+    }
+    else {
+      setIsLoaded(false);
     }
   }, []);
 
+  useEffect(() => {
+    console.log(name);
+
+    if (name != "home") {
+      fetchPokeInfo(name);
+      setIsLoaded(true);
+    }
+    else {
+      setInitialInformation(null);
+      setInformation(null);
+      setIsLoaded(false);
+    }
+  }, [name]);
+
+
+
   const fetchPokeInfo = (id) => {
-    fetch("https://pokeapi.co/api/v2/pokemon/" + id)
+    fetch("https://pokeapi.co/api/v2/pokemon/" + name)
       .then(res => res.json())
       .then(result => {
+        console.log(result);
+        setInitialInformation(result);
+        setSprites([result.sprites.front_default,
+        result.sprites.back_default,
+        result.sprites.front_shiny,
+        result.sprites.back_shiny,
+        result.sprites.female_default,
+        result.sprites.back_female,
+        result.sprites.front_female,
+        result.sprites.back_shiny_female,
+        result.sprites.front_shiny_female].filter(e => e));
+
+        setCurrentSprite(result.sprites.front_default);
+
         if (result)
           fetch(result.species.url)
             .then(res => res.json())
             .then(result => {
               setInformation(result);
-              // console.log(result);
+              console.log(result);
+              // console.log(initialInformation)
             });
       });
   }
 
-  const navToPrevious = () => {
-    if (parseInt(information.id, 10) - 1 > 0) {
-      fetchPokeInfo(information.id - 1);
-    }
-  }
+  // const navToPrevious = () => {
+  //   if (parseInt(information.id, 10) - 1 > 0) {
+  //     fetchPokeInfo(information.id - 1);
+  //   }
+  // }
 
-  const navToNext = () => {
-    fetchPokeInfo(information.id + 1);
-  }
+  // const navToNext = () => {
+  //   fetchPokeInfo(information.id + 1);
+  // }
 
   const returnToPokedex = () => {
-    props.closeFunction();
+    // props.closeFunction();
+
+    // navigate('/');
+    navigate("/home");
+    setIsLoaded(false);
   }
 
   const returnAbilityString = () => {
@@ -206,6 +228,10 @@ const PokemonInformation = (props) => {
     if (information) {
       // if (information.)
     }
+  }
+
+  const playCry = () => {
+    document.getElementById('current-cry').play();
   }
 
   const navigateLeft = () => {
@@ -264,63 +290,65 @@ const PokemonInformation = (props) => {
   return (
     isLoaded ?
       (<Fade opposite top duration={300} key={initialInformation}>
-        <div className="pokeinfo-wrapper">
-          <div
-            className="pokemon-information-background"
-            id="pokemon-information-background"
-          >
-            <div className="navbar-top">
-              <div className="pokemon-name"> {initialInformation.name ? initialInformation.name : ""}</div>
-              {/* {this.displayPrevButton()} */}
-              {/* <NavToNext currentNum={idNum}></NavToNext> */}
-            </div>
-            {/* {showInformation()} */}
+        {
+          initialInformation ?
+            <div className="pokeinfo-wrapper">
+              <div
+                className="pokemon-information-background"
+                id="pokemon-information-background"
+              >
+                <div className="navbar-top">
+                  <div className="pokemon-name"> {initialInformation.name ? initialInformation.name : ""}</div>
+                  {/* {this.displayPrevButton()} */}
+                  {/* <NavToNext currentNum={idNum}></NavToNext> */}
+                </div>
+                {/* {showInformation()} */}
 
-            {information && initialInformation ? (
-              <div className="info-scroller">
-                {/* <div className='prev' onClick={navToPrevious}>
+                {information && initialInformation ? (
+                  <div className="info-scroller">
+                    {/* <div className='prev' onClick={navToPrevious}>
                 </div> */}
-                <div className="information-form" ref={ref}>
-                  <div className="pokedexlights">
-                    <img src={require("./images/pokedexlight.png")} className="pokelight1" />
-                    <img src={require("./images/redlight.png")} className="pokelight2" />
-                    <img src={require("./images/yellowlight.png")} className="pokelight2" />
-                    <img src={require("./images/greenlight.png")} className="pokelight2" />
-                    <hr></hr>
-                    <label>#{information ? information.id : null}</label>
-                    <hr></hr>
-                  </div>
-                  <div className="pokeimage-window-panel">
-                    <div className="upperpanel-wrapper">
-                      <div className="top-lights"></div>
-                      <div className="top-lights"></div>
-                      {/* <img className='top-lights' src={require("./images/redlight.png")} />
-                      <img className='top-lights' src={require("./images/redlight.png")} /> */}
-                    </div>
-
-                    <div className="pokeimage-screen">
-
-                      <div className="gen-type-wrap">
-                        <div className="generation">
-                          <div className="pokeball-pin" style={{ marginRight: "4px" }}></div>
-                          {initialInformation.name}
-                          <div className="pokeball-pin" style={{ marginLeft: "4px" }}></div>
-                        </div>
-
-                        {/* <hr style={{ width: "100%", border: "2px dashed lightblue", height: 0, margin: "auto 3px" }}></hr> */}
-
-                        <div className="pokeimage-screen_types">
-                          <div className="poketype" style={{ background: convertColor(initialInformation.types[0].type.name) }}>
-                            {initialInformation.types[0].type.name}
-                          </div>
-                          {initialInformation.types[1] ?
-                            (<div className="poketype" style={{ background: convertColor(initialInformation.types[1].type.name) }}>
-                              {initialInformation.types[1].type.name}
-                            </div>) : (<></>)}
-                        </div>
+                    <div className="information-form" ref={ref}>
+                      <div className="pokedexlights">
+                        <img src={require("./images/pokedexlight.png")} className="pokelight1" />
+                        <img src={require("./images/redlight.png")} className="pokelight2" />
+                        <img src={require("./images/yellowlight.png")} className="pokelight2" />
+                        <img src={require("./images/greenlight.png")} className="pokelight2" />
+                        <hr></hr>
+                        <label>#{information ? information.id : null}</label>
+                        <hr></hr>
                       </div>
+                      <div className="pokeimage-window-panel">
+                        <div className="upperpanel-wrapper">
+                          <div className="top-lights"></div>
+                          <div className="top-lights"></div>
+                          {/* <img className='top-lights' src={require("./images/redlight.png")} />
+                      <img className='top-lights' src={require("./images/redlight.png")} /> */}
+                        </div>
 
-                      {/* <div className="pokeimage-screen_types">
+                        <div className="pokeimage-screen">
+
+                          <div className="gen-type-wrap">
+                            <div className="generation">
+                              <div className="pokeball-pin" style={{ marginRight: "4px" }}></div>
+                              {information.generation.name}
+                              <div className="pokeball-pin" style={{ marginLeft: "4px" }}></div>
+                            </div>
+
+                            {/* <hr style={{ width: "100%", border: "2px dashed lightblue", height: 0, margin: "auto 3px" }}></hr> */}
+
+                            <div className="pokeimage-screen_types">
+                              <div className="poketype" style={{ background: convertColor(initialInformation.types[0].type.name) }}>
+                                {initialInformation.types[0].type.name}
+                              </div>
+                              {initialInformation.types[1] ?
+                                (<div className="poketype" style={{ background: convertColor(initialInformation.types[1].type.name) }}>
+                                  {initialInformation.types[1].type.name}
+                                </div>) : (<></>)}
+                            </div>
+                          </div>
+
+                          {/* <div className="pokeimage-screen_types">
                         <div className="poketype" style={{ background: convertColor(initialInformation.types[0].type.name) }}>
                           {initialInformation.types[0].type.name}
                         </div>
@@ -330,195 +358,256 @@ const PokemonInformation = (props) => {
                           </div>) : (<></>)}
                       </div> */}
 
-                      {/* Image gallery */}
-                      <div className="image-gallery">
-                        <div className="gallery-left">
-                          <div className="left-arrow-clip" onClick={navigateLeft}></div>
-                        </div>
+                          <div className="pokemon-floaters-info-wrap">
+                            {/* Image gallery */}
+                            <div className="image-gallery">
+                              <div className="image-gallery_wrapper">
+                                <div className="image-gallery_background">
+                                  <Fade duration={400}>
+                                    <img key={currentSprite} className="current-sprite" src={currentSprite}>
+                                    </img>
+                                  </Fade>
+                                </div>
+                              </div>
 
-                        <div className="image-gallery_wrapper">
-                          <div className="image-gallery_background">
-                            <Fade duration={400}>
-                              <img key={currentSprite} className="current-sprite" src={currentSprite}>
-                              </img>
-                            </Fade>
+                              <div className="image-gallery-nav">
+                                <div className="gallery-left">
+                                  <div className="left-arrow-clip" onClick={navigateLeft}></div>
+                                </div>
+
+                                {/* <hr></hr> */}
+
+                                <div className="gallery-right">
+                                  <div className="right-arrow-clip" onClick={navigateRight}></div>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Misc Info on right side */}
+                            <div className="floating-misc-info">
+                              <div className="name-id-floater">
+                                <div className="idnamefloat">
+                                  <div className="pokeball-pin2"></div>
+                                  {"#" + information.id}
+                                  {" "}
+                                  {information.name}
+                                </div>
+                                <div className="funfloat">
+                                  Pokemon
+                                </div>
+                              </div>
+
+                              <div className="height-weight-floater">
+                                <div className="wh-info">
+                                  <label>HT:</label>
+                                  <label>{initialInformation.height / 10}m</label>
+                                </div>
+                                <div className="height-weight-floater-separator"></div>
+                                <div className="wh-info">
+                                  <label>WT:</label>
+                                  <label>{initialInformation.weight / 10}kg</label>
+                                </div>
+                              </div>
+
+
+                              {
+                                initialInformation.cries ?
+                                  <div className="cry-floater-wrap">
+                                    {
+                                      initialInformation.cries.latest ?
+                                        <audio id="current-cry" src={initialInformation.cries.latest} />
+                                        :
+                                        (
+                                          initialInformation.cries.legacy ?
+                                            <audio id="current-cry" src={initialInformation.cries.legacy} />
+                                            :
+                                            <></>
+                                        )
+                                    }
+                                    <AiTwotoneSound className="cry-icon" onClick={playCry} />
+                                  </div>
+
+                                  :
+                                  <></>
+                              }
+                            </div>
+
+
                           </div>
+
+                          {/* <div className="generation-text">
+                            <label>
+                              {formatGeneration(initialInformation.name)}
+                            </label>
+                          </div> */}
+
+                          {/* Flavor Text */}
+                          {information.flavor_text_entries[0] ?
+                            (<div className="flavor-text">
+                              <label>
+                                <TypeAnimation sequence={["> " + information.flavor_text_entries.filter(e => e.language.name === 'en')[0].flavor_text.replace('\f', ' ')]} cursor={true} speed={70} />
+                              </label>
+
+                              <div className="fill-space-flavor">
+                                {["> " + information.flavor_text_entries.filter(e => e.language.name === 'en')[0].flavor_text.replace('\f', ' ')]}
+                              </div>
+                            </div>) : null}
+
+                        </div>
+                        {/* Posture */}
+
+                        <div className="underscreen-decor">
+                          <div className="underscreen-light" />
+                          <img className="hamburger-decor" src={require("./images/hamburger.png")} />
                         </div>
 
-                        <div className="gallery-right">
-                          <div className="right-arrow-clip" onClick={navigateRight}></div>
-                        </div>
                       </div>
-
-                      <div className="generation-text">
-                        <label>
-                          {formatGeneration(information.generation.name)}
-                        </label>
-                      </div>
-
-                      {/* Flavor Text */}
-                      {information.flavor_text_entries[0] ?
-                        (<div className="flavor-text">
-                          <label>
-                            <TypeAnimation sequence={["> " + information.flavor_text_entries.filter(e => e.language.name === 'en')[0].flavor_text]} cursor={true} speed={70} />
-                          </label>
-
-                          <div className="fill-space-flavor">
-                            {["> " + information.flavor_text_entries.filter(e => e.language.name === 'en')[0].flavor_text]}
-                          </div>
-                        </div>) : null}
-
-                    </div>
-                    {/* Posture */}
-
-                    <div className="underscreen-decor">
-                      <div className="underscreen-light" />
-                      <img className="hamburger-decor" src={require("./images/hamburger.png")} />
-                    </div>
-
-                  </div>
-                  {/* Stat bars */}
-                  <div className="stats-label">
-                    <div className="bolt" />
-                    <div className="title-grouping">
-                      <label className="stat-label">Stats</label>
-                      <hr></hr>
-                    </div>
-                    <div className="bolt" />
-                  </div>
-                  <div className="base-stat-wrapper">
-                    {initialInformation.stats.map(s => (<StatBar key={s.stat.name} stat={s} />))}
-                  </div>
-
-                  <div className="misc-info-wrapper">
-                    <div className="misc-info">
-                      <label>Height: <span>{initialInformation.height}</span></label>
-                      <hr></hr>
-                      <label>Weight: <span>{initialInformation.weight}</span></label>
-                    </div>
-
-
-                    <div className="misc-info">
-                      {
-                        information.shape ?
-                          <>
-                            <label>Posture: <span>{information.shape.name}</span></label>
-                            <hr></hr>
-                          </>
-                          :
-                          <></>
-                      }
-                      {
-                        information.capture_rate ?
-                          <>
-                            <label>Capture Rate: <span>{information.capture_rate}</span></label>
-                          </>
-                          :
-                          <></>
-                      }
-                    </div>
-                  </div>
-
-
-                  {/* Abilities */}
-                  {initialInformation.abilities && initialInformation.abilities.length > 0 ?
-                    (<div className="stats-label">
-                      <label className="stat-label">Abilities</label>
-                      <hr></hr>
-                    </div>)
-                    :
-                    (<></>)}
-
-                  {initialInformation.abilities && initialInformation.abilities.length > 0 ?
-                    (<div className="abilities-wrapper">
-                      {initialInformation.abilities.map(s => (<Ability key={s.ability.name} abilityobj={s} />))}
-                    </div>)
-                    :
-                    (<></>)}
-
-                  {/* Habitat */}
-                  {information.habitat ?
-                    (<div className="stats-label">
-                      <label className="stat-label">Habitat</label>
-                      <hr></hr>
-                    </div>) : (<></>)}
-
-                  {information.habitat ?
-                    (<div className="habitat-wrapper">
-                      <div className="habitat-screen">
-                        <div className="habitat-info">
-                          <Fade bottom>
-                            <img className="habitat-img" src={require("./images/habitats/" + information.habitat.name + ".png")} />
-                          </Fade>
-                          <TypeAnimation sequence={["> " + ((information.habitat.name === 'rare') ? 'origin-unknown' : information.habitat.name)]} cursor={true} speed={70} />
-                        </div>
-                      </div>
-                    </div>) : (<></>)}
-
-
-
-
-                  {/* Evolutions */}
-                  {information.evolution_chain ?
-                    (
-                      <React.Fragment>
-                        <div className="stats-label">
-                          <label className="stat-label">Evolutions</label>
+                      {/* Stat bars */}
+                      <div className="stats-label">
+                        <div className="bolt" />
+                        <div className="title-grouping">
+                          <label className="stat-label">Stats</label>
                           <hr></hr>
                         </div>
+                        <div className="bolt" />
+                      </div>
+                      <div className="base-stat-wrapper">
+                        {initialInformation.stats.map(s => (<StatBar key={s.stat.name} stat={s} />))}
+                      </div>
 
-                        <div className="evolutions-wrapper">
-                          <EvolutionChain setPokemon={props.passFunction} chainUrl={information.evolution_chain.url} />
-                        </div>
-                      </React.Fragment>
-                    ) : (<></>)}
-
-                  {/* Moves */}
-                  <div className="stats-label">
-                    {/* <hr></hr> */}
-                    <label className="stat-label">Moves</label>
-                    <hr></hr>
-                  </div>
-
-                  <div className="moves-wrapper">
-                    {initialInformation.moves.map(s => (<Pokemove key={s.move.name} moveobj={s} />))}
-                  </div>
-
-                  {/* Damage Relation Info */}
-                  {initialInformation.types ?
-                    (
-                      <React.Fragment>
-                        <div className="stats-label">
-                          {/* <hr></hr> */}
-                          <label className="stat-label">Damage Relations</label>
+                      <div className="misc-info-wrapper">
+                        <div className="misc-info">
+                          <label>Height: <span>{initialInformation.height}</span></label>
                           <hr></hr>
+                          <label>Weight: <span>{initialInformation.weight}</span></label>
                         </div>
 
-                        <div className="damage-info">
-                          <DamageRelation type={initialInformation.types}></DamageRelation>
-                        </div>
-                      </React.Fragment>
-                    ) : (<></>)
-                  }
-                </div>
-              </div>) : (<LoadingScreen />)}
 
-            <div className="return-link" onClick={returnToPokedex}>
-              {/* <input
+                        <div className="misc-info">
+                          {
+                            information.shape ?
+                              <>
+                                <label>Posture: <span>{information.shape.name}</span></label>
+                                <hr></hr>
+                              </>
+                              :
+                              <></>
+                          }
+                          {
+                            information.capture_rate ?
+                              <>
+                                <label>Capture Rate: <span>{information.capture_rate}</span></label>
+                              </>
+                              :
+                              <></>
+                          }
+                        </div>
+                      </div>
+
+
+                      {/* Abilities */}
+                      {initialInformation.abilities && initialInformation.abilities.length > 0 ?
+                        (<div className="stats-label">
+                          <label className="stat-label">Abilities</label>
+                          <hr></hr>
+                        </div>)
+                        :
+                        (<></>)}
+
+                      {initialInformation.abilities && initialInformation.abilities.length > 0 ?
+                        (<div className="abilities-wrapper">
+                          {initialInformation.abilities.map(s => (<Ability key={s.ability.name} abilityobj={s} />))}
+                        </div>)
+                        :
+                        (<></>)}
+
+                      {/* Habitat */}
+                      {information.habitat ?
+                        (<div className="stats-label">
+                          <label className="stat-label">Habitat</label>
+                          <hr></hr>
+                        </div>) : (<></>)}
+
+                      {information.habitat ?
+                        (<div className="habitat-wrapper">
+                          <div className="habitat-screen">
+                            <div className="habitat-info">
+                              <Fade bottom>
+                                <img className="habitat-img" src={require("./images/habitats/" + information.habitat.name + ".png")} />
+                              </Fade>
+                              <TypeAnimation sequence={["> " + ((information.habitat.name === 'rare') ? 'origin-unknown' : information.habitat.name)]} cursor={true} speed={70} />
+                            </div>
+                          </div>
+                        </div>) : (<></>)}
+
+
+
+
+                      {/* Evolutions */}
+                      {information.evolution_chain ?
+                        (
+                          <React.Fragment>
+                            <div className="stats-label">
+                              <label className="stat-label">Evolutions</label>
+                              <hr></hr>
+                            </div>
+
+                            <div className="evolutions-wrapper">
+                              <EvolutionChain setPokemon={props.passFunction} chainUrl={information.evolution_chain.url} />
+                            </div>
+                          </React.Fragment>
+                        ) : (<></>)}
+
+                      {/* Moves */}
+                      <div className="stats-label">
+                        {/* <hr></hr> */}
+                        <label className="stat-label">Moves</label>
+                        <hr></hr>
+                      </div>
+
+                      <div className="moves-wrapper">
+                        {initialInformation.moves.map(s => (<Pokemove key={s.move.name} moveobj={s} />))}
+                      </div>
+
+                      {/* Damage Relation Info */}
+                      {initialInformation.types ?
+                        (
+                          <React.Fragment>
+                            <div className="stats-label">
+                              {/* <hr></hr> */}
+                              <label className="stat-label">Damage Relations</label>
+                              <hr></hr>
+                            </div>
+
+                            <div className="damage-info">
+                              <DamageRelation type={initialInformation.types}></DamageRelation>
+                            </div>
+                          </React.Fragment>
+                        ) : (<></>)
+                      }
+                    </div>
+                  </div>) : (<LoadingScreen />)}
+
+                <div className="return-link" onClick={returnToPokedex}>
+                  {/* <input
                 className="return-button"
                 type="submit"
                 value="Return to Pokédex"
                 onClick={returnToPokedex}
               ></input> */}
-              <img src={require('./images/uparrow.png')} />
-              <img src={require('./images/uparrow.png')} />
-              <img src={require('./images/uparrow.png')} />
+                  <img src={require('./images/uparrow.png')} />
+                  <img src={require('./images/uparrow.png')} />
+                  <img src={require('./images/uparrow.png')} />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+            :
+            <></>
+        }
       </Fade >)
       :
-      (<LoadingScreen />)
+      <></>
+    // (<LoadingScreen />)
   );
 }
 export default PokemonInformation;
