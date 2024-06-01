@@ -16,7 +16,7 @@ const StatBar = (props) => {
     return (
         <div className="statbar-wrapper" key={props.stat.stat.name}>
             <label>
-                {props.stat.stat.name.toUpperCase()}
+                {props.stat.stat.name.replace("special-", 'SP.').toUpperCase()}
             </label>
 
             {/* <hr className='stat-spacer'></hr> */}
@@ -27,7 +27,7 @@ const StatBar = (props) => {
                         props.stat.base_stat < 30 ?
                             <span className="stat-num">{`${props.stat.base_stat}`}</span>
                             :
-                            <span className="stat-num">{`${props.stat.base_stat}`}/255</span>
+                            <span className="stat-num">{`${props.stat.base_stat}`}</span>
 
                     }
                 </div>

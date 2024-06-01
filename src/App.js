@@ -18,14 +18,17 @@ function App() {
     <Suspense fallback={<LoadingScreen />}>
       <Router basename="/pokedex-react">
         <Routes>
-          <Route exact path={"/:name"} element={
+          <Route exact path={"/:nameOrId"} element={
             <div>
               <Pokedex />
               <PokemonInformation />
-              {/* <PokemonInformation /> */}
             </div>}
           />
 
+          <Route
+            path="*"
+            element={<Navigate to="/home" replace={true} />}
+          />
           {/* <Route path={"/:name"} element={<PokemonInformation />} key={":name"} /> */}
           {/* <Route exact path="*" element={<Pokedex />} /> */}
         </Routes>

@@ -127,9 +127,8 @@ const Pokedex = () => {
   };
 
   const setPokemon = (pokeinfo) => {
-    // setSelectedPokemon(pokeinfo);
-    console.log(pokeinfo);
-    // setPokemonClicked(true);
+
+
     navigate('/' + pokeinfo.name);
     console.log('navigating to ' + pokeinfo.name)
 
@@ -440,7 +439,7 @@ const Pokedex = () => {
                             name={p.name}
                             information={p.allInformation}
                             key={p.id + p.name}
-                            setPokeinformation={setPokemon}
+                            // setPokeinformation={setPokemon}
                             isEvo={false}
                           ></PokemonCard>
                         ))}

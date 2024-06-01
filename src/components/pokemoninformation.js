@@ -122,20 +122,20 @@ const PokemonInformation = (props) => {
   // };
 
   const [initialInformation, setInitialInformation] = useState(null);
-  const [information, setInformation] = useState();
+  const [information, setInformation] = useState(null);
   const [sprites, setSprites] = useState([]);
   const [spritesPos, setSpritesPos] = useState(0);
   const [currentSprite, setCurrentSprite] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { name, pokeinfo } = useParams();
+  const { nameOrId } = useParams();
 
   useEffect(() => {
-    console.log(name);
+    console.log(nameOrId);
 
-    if (name != "home") {
-      fetchPokeInfo(name);
+    if (nameOrId != "home") {
+      fetchPokeInfo(nameOrId);
       setIsLoaded(true);
     }
     else {
@@ -144,10 +144,10 @@ const PokemonInformation = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(name);
+    console.log(nameOrId);
 
-    if (name != "home") {
-      fetchPokeInfo(name);
+    if (nameOrId != "home") {
+      fetchPokeInfo(nameOrId);
       setIsLoaded(true);
     }
     else {
@@ -155,16 +155,18 @@ const PokemonInformation = (props) => {
       setInformation(null);
       setIsLoaded(false);
     }
-  }, [name]);
+  }, [nameOrId]);
 
 
 
   const fetchPokeInfo = (id) => {
-    fetch("https://pokeapi.co/api/v2/pokemon/" + name)
+    fetch("https://pokeapi.co/api/v2/pokemon/" + id)
       .then(res => res.json())
       .then(result => {
         console.log(result);
+
         setInitialInformation(result);
+
         setSprites([result.sprites.front_default,
         result.sprites.back_default,
         result.sprites.front_shiny,
@@ -201,9 +203,19 @@ const PokemonInformation = (props) => {
   const returnToPokedex = () => {
     // props.closeFunction();
 
-    // navigate('/');
-    navigate("/home");
-    setIsLoaded(false);
+
+
+
+
+
+    setInitialInformation(null);
+    setInformation(null);
+
+    if (nameOrId != 'home') {
+      navigate('/home');
+      console.log("go home");
+    }
+    // setIsLoaded(false);
   }
 
   const returnAbilityString = () => {
@@ -289,9 +301,9 @@ const PokemonInformation = (props) => {
 
   return (
     isLoaded ?
-      (<Fade opposite top duration={300} key={initialInformation}>
+      (<Fade opposite top duration={300} key={nameOrId}>
         {
-          initialInformation ?
+          initialInformation && information ?
             <div className="pokeinfo-wrapper">
               <div
                 className="pokemon-information-background"
@@ -308,47 +320,50 @@ const PokemonInformation = (props) => {
                   <div className="info-scroller">
                     {/* <div className='prev' onClick={navToPrevious}>
                 </div> */}
-                    <div className="information-form" ref={ref}>
+                    <div className="information-form" ref={null}>
                       <div className="pokedexlights">
                         <img src={require("./images/pokedexlight.png")} className="pokelight1" />
-                        <img src={require("./images/redlight.png")} className="pokelight2" />
-                        <img src={require("./images/yellowlight.png")} className="pokelight2" />
-                        <img src={require("./images/greenlight.png")} className="pokelight2" />
+                        <div className="pokelight pokelight-red"></div>
+                        <div className="pokelight pokelight-yellow"></div>
+                        <div className="pokelight pokelight-green"></div>
+
                         <hr></hr>
                         <label>#{information ? information.id : null}</label>
                         <hr></hr>
                       </div>
-                      <div className="pokeimage-window-panel">
-                        <div className="upperpanel-wrapper">
-                          <div className="top-lights"></div>
-                          <div className="top-lights"></div>
-                          {/* <img className='top-lights' src={require("./images/redlight.png")} />
+
+                      <div className="wrap-upper-info">
+                        <div className="pokeimage-window-panel">
+                          <div className="upperpanel-wrapper">
+                            <div className="top-lights"></div>
+                            <div className="top-lights"></div>
+                            {/* <img className='top-lights' src={require("./images/redlight.png")} />
                       <img className='top-lights' src={require("./images/redlight.png")} /> */}
-                        </div>
-
-                        <div className="pokeimage-screen">
-
-                          <div className="gen-type-wrap">
-                            <div className="generation">
-                              <div className="pokeball-pin" style={{ marginRight: "4px" }}></div>
-                              {information.generation.name}
-                              <div className="pokeball-pin" style={{ marginLeft: "4px" }}></div>
-                            </div>
-
-                            {/* <hr style={{ width: "100%", border: "2px dashed lightblue", height: 0, margin: "auto 3px" }}></hr> */}
-
-                            <div className="pokeimage-screen_types">
-                              <div className="poketype" style={{ background: convertColor(initialInformation.types[0].type.name) }}>
-                                {initialInformation.types[0].type.name}
-                              </div>
-                              {initialInformation.types[1] ?
-                                (<div className="poketype" style={{ background: convertColor(initialInformation.types[1].type.name) }}>
-                                  {initialInformation.types[1].type.name}
-                                </div>) : (<></>)}
-                            </div>
                           </div>
 
-                          {/* <div className="pokeimage-screen_types">
+                          <div className="pokeimage-screen">
+
+                            <div className="gen-type-wrap">
+                              <div className="generation">
+                                <div className="pokeball-pin" style={{ marginRight: "4px" }}></div>
+                                {formatGeneration(information.generation.name)}
+                                <div className="pokeball-pin" style={{ marginLeft: "4px" }}></div>
+                              </div>
+
+                              {/* <hr style={{ width: "100%", border: "2px dashed lightblue", height: 0, margin: "auto 3px" }}></hr> */}
+
+                              <div className="pokeimage-screen_types">
+                                <div className="poketype" style={{ background: convertColor(initialInformation.types[0].type.name) }}>
+                                  {initialInformation.types[0].type.name}
+                                </div>
+                                {initialInformation.types[1] ?
+                                  (<div className="poketype" style={{ background: convertColor(initialInformation.types[1].type.name) }}>
+                                    {initialInformation.types[1].type.name}
+                                  </div>) : (<></>)}
+                              </div>
+                            </div>
+
+                            {/* <div className="pokeimage-screen_types">
                         <div className="poketype" style={{ background: convertColor(initialInformation.types[0].type.name) }}>
                           {initialInformation.types[0].type.name}
                         </div>
@@ -358,110 +373,142 @@ const PokemonInformation = (props) => {
                           </div>) : (<></>)}
                       </div> */}
 
-                          <div className="pokemon-floaters-info-wrap">
-                            {/* Image gallery */}
-                            <div className="image-gallery">
-                              <div className="image-gallery_wrapper">
-                                <div className="image-gallery_background">
-                                  <Fade duration={400}>
-                                    <img key={currentSprite} className="current-sprite" src={currentSprite}>
-                                    </img>
-                                  </Fade>
-                                </div>
-                              </div>
-
-                              <div className="image-gallery-nav">
-                                <div className="gallery-left">
-                                  <div className="left-arrow-clip" onClick={navigateLeft}></div>
+                            <div className="pokemon-floaters-info-wrap">
+                              {/* Image gallery */}
+                              <div className="image-gallery">
+                                <div className="image-gallery_wrapper">
+                                  <div className="image-gallery_background">
+                                    <Fade duration={400}>
+                                      <img key={currentSprite} className="current-sprite" src={currentSprite}>
+                                      </img>
+                                    </Fade>
+                                  </div>
                                 </div>
 
-                                {/* <hr></hr> */}
-
-                                <div className="gallery-right">
-                                  <div className="right-arrow-clip" onClick={navigateRight}></div>
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Misc Info on right side */}
-                            <div className="floating-misc-info">
-                              <div className="name-id-floater">
-                                <div className="idnamefloat">
-                                  <div className="pokeball-pin2"></div>
-                                  {"#" + information.id}
-                                  {" "}
-                                  {information.name}
-                                </div>
-                                <div className="funfloat">
-                                  Pokemon
-                                </div>
-                              </div>
-
-                              <div className="height-weight-floater">
-                                <div className="wh-info">
-                                  <label>HT:</label>
-                                  <label>{initialInformation.height / 10}m</label>
-                                </div>
-                                <div className="height-weight-floater-separator"></div>
-                                <div className="wh-info">
-                                  <label>WT:</label>
-                                  <label>{initialInformation.weight / 10}kg</label>
-                                </div>
-                              </div>
-
-
-                              {
-                                initialInformation.cries ?
-                                  <div className="cry-floater-wrap">
-                                    {
-                                      initialInformation.cries.latest ?
-                                        <audio id="current-cry" src={initialInformation.cries.latest} />
-                                        :
-                                        (
-                                          initialInformation.cries.legacy ?
-                                            <audio id="current-cry" src={initialInformation.cries.legacy} />
-                                            :
-                                            <></>
-                                        )
-                                    }
-                                    <AiTwotoneSound className="cry-icon" onClick={playCry} />
+                                <div className="image-gallery-nav">
+                                  <div className="gallery-left">
+                                    <div className="left-arrow-clip" onClick={navigateLeft}></div>
                                   </div>
 
-                                  :
-                                  <></>
-                              }
+                                  {/* <hr></hr> */}
+
+                                  <div className="gallery-right">
+                                    <div className="right-arrow-clip" onClick={navigateRight}></div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Misc Info on right side */}
+                              <div className="floating-misc-info">
+                                <div className="name-id-floater">
+                                  <div className="idnamefloat">
+                                    <div className="pokeball-pin2"></div>
+                                    {"#" + information.id}
+                                    {" "}
+                                    {information.name}
+                                  </div>
+                                  <div className="funfloat">
+                                    {(information.habitat ? information.habitat.name : "???") + " Pokemon"}
+                                  </div>
+                                </div>
+
+                                <div className="height-weight-floater">
+                                  <div className="wh-info">
+                                    <label>HT:</label>
+                                    <label>{initialInformation.height / 10}m</label>
+                                  </div>
+                                  <div className="height-weight-floater-separator"></div>
+                                  <div className="wh-info">
+                                    <label>WT:</label>
+                                    <label>{initialInformation.weight / 10}kg</label>
+                                  </div>
+                                </div>
+
+                                {
+                                  initialInformation.cries ?
+                                    <div className="cry-floater-wrap">
+                                      {
+                                        initialInformation.cries.latest ?
+                                          <audio id="current-cry" src={initialInformation.cries.latest} />
+                                          :
+                                          (
+                                            initialInformation.cries.legacy ?
+                                              <audio id="current-cry" src={initialInformation.cries.legacy} />
+                                              :
+                                              <></>
+                                          )
+                                      }
+                                      <AiTwotoneSound className="cry-icon" onClick={playCry} />
+                                    </div>
+
+                                    :
+                                    <></>
+                                }
+
+                                <div className="separationbar-floater">
+                                </div>
+                              </div>
                             </div>
 
 
+                            {/* Flavor Text */}
+                            {information.flavor_text_entries ?
+                              (<div className="flavor-text" key={information}>
+                                {/* <TypeAnimation className="flavor-text-actual" sequence={["> " + information.flavor_text_entries.filter(e => e.language.name === 'en')[0].flavor_text.replace('\f', ' ')]} cursor={false} speed={70} /> */}
+                                <div className="flavor-text-actual">
+                                  {["> " + information.flavor_text_entries.filter(e => e.language.name === 'en')[0].flavor_text.replace('\f', ' ')]}
+                                </div>
+
+                                <div className="fill-space-flavor">
+                                  {["> " + information.flavor_text_entries.filter(e => e.language.name === 'en')[0].flavor_text.replace('\f', ' ')]}
+                                </div>
+                              </div>) : null}
+
+                          </div>
+                          {/* Posture */}
+
+                          <div className="underscreen-decor">
+                            <div className="underscreen-light" />
+                            <img className="hamburger-decor" src={require("./images/hamburger.png")} />
+                          </div>
+                        </div>
+
+                        <div className="wrap-special-stats-diagram">
+                          <div className="misc-info-wrapper wrap-upper-info fit-30">
+                            <div className="misc-info-wrapper">
+                              <div className="misc-info">
+                                {
+                                  information.shape ?
+                                    <>
+                                      <label>Posture: <span>{information.shape.name}</span></label>
+                                    </>
+                                    :
+                                    <></>
+                                }
+                              </div>
+                            </div>
+
+                            <div className="misc-info-wrapper">
+                              <div className="misc-info">
+                                {
+                                  information.capture_rate ?
+                                    <>
+                                      <label>Capture Rate: <span>{information.capture_rate}</span></label>
+                                    </>
+                                    :
+                                    <></>
+                                }
+                              </div>
+                            </div>
                           </div>
 
-                          {/* <div className="generation-text">
-                            <label>
-                              {formatGeneration(initialInformation.name)}
-                            </label>
-                          </div> */}
+                          <div className="special-skill-diagram">
+                          </div>
 
-                          {/* Flavor Text */}
-                          {information.flavor_text_entries[0] ?
-                            (<div className="flavor-text">
-                              <label>
-                                <TypeAnimation sequence={["> " + information.flavor_text_entries.filter(e => e.language.name === 'en')[0].flavor_text.replace('\f', ' ')]} cursor={true} speed={70} />
-                              </label>
-
-                              <div className="fill-space-flavor">
-                                {["> " + information.flavor_text_entries.filter(e => e.language.name === 'en')[0].flavor_text.replace('\f', ' ')]}
-                              </div>
-                            </div>) : null}
-
-                        </div>
-                        {/* Posture */}
-
-                        <div className="underscreen-decor">
-                          <div className="underscreen-light" />
-                          <img className="hamburger-decor" src={require("./images/hamburger.png")} />
                         </div>
 
                       </div>
+
                       {/* Stat bars */}
                       <div className="stats-label">
                         <div className="bolt" />
@@ -475,34 +522,6 @@ const PokemonInformation = (props) => {
                         {initialInformation.stats.map(s => (<StatBar key={s.stat.name} stat={s} />))}
                       </div>
 
-                      <div className="misc-info-wrapper">
-                        <div className="misc-info">
-                          <label>Height: <span>{initialInformation.height}</span></label>
-                          <hr></hr>
-                          <label>Weight: <span>{initialInformation.weight}</span></label>
-                        </div>
-
-
-                        <div className="misc-info">
-                          {
-                            information.shape ?
-                              <>
-                                <label>Posture: <span>{information.shape.name}</span></label>
-                                <hr></hr>
-                              </>
-                              :
-                              <></>
-                          }
-                          {
-                            information.capture_rate ?
-                              <>
-                                <label>Capture Rate: <span>{information.capture_rate}</span></label>
-                              </>
-                              :
-                              <></>
-                          }
-                        </div>
-                      </div>
 
 
                       {/* Abilities */}
@@ -589,12 +608,7 @@ const PokemonInformation = (props) => {
                   </div>) : (<LoadingScreen />)}
 
                 <div className="return-link" onClick={returnToPokedex}>
-                  {/* <input
-                className="return-button"
-                type="submit"
-                value="Return to Pokédex"
-                onClick={returnToPokedex}
-              ></input> */}
+
                   <img src={require('./images/uparrow.png')} />
                   <img src={require('./images/uparrow.png')} />
                   <img src={require('./images/uparrow.png')} />

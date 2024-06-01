@@ -4,7 +4,7 @@ import Pokedex from "./pokedex";
 import PokemonInformation from "./pokemoninformation";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const PokemonCard = (props) => {
   const [imageUrl, setImageUrl] = useState(props.imageUrl);
@@ -14,11 +14,15 @@ const PokemonCard = (props) => {
   const [abilities, setAbilities] = useState();
   const [clicked, setClicked] = useState();
   const callbackFunc = props.callbackFunc;
+  const navigate = useNavigate();
+  const { nameOrId } = useParams();
 
   const UpdateClick = () => {
-    // navigate('/' + information.name);
-    props.setPokeinformation(information);
-    //window.location.href = "/pokedex-react/#/pokeinfo/" + name;
+    console.log(nameOrId);
+
+    navigate('/' + information.name);
+
+    console.log('navigating to ' + information.name);
   }
   const capitalize = s => {
     if (typeof s !== "string") return "";
@@ -108,12 +112,12 @@ const PokemonCard = (props) => {
   // });
 
   return (
-    <div className="pokemon-image-border" style={props.isEvo ? { width: '100%' } : {}}>
+    <div onClick={UpdateClick}
+      className="pokemon-image-border">
       <img
         className="pokemon-image"
         src={imageUrl}
         alt={name}
-        onClick={UpdateClick}
       ></img>
       <div className="card-type-gradient" style={{ background: generateTypeBar() }} id="card-type-gradient"></div>
       <label>{capitalize(name)}</label>

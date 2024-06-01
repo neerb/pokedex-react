@@ -70,7 +70,6 @@
     flex-direction: row;
     justify-content: space-evenly;
     vertical-align: bottom;
-    transform: translateY(25%);
 }
 
 .load-bottom-screen {

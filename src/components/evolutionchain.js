@@ -68,14 +68,15 @@ const EvolutionChain = (props) => {
                     </div>
                     : (<></>)}
 
-                <div className="evo-item">
-                    <img
-                        src={p.sprites.front_default}
-                        alt={p.name}
-                        className="evo-image"
-                    />
-                    <label className="evo-name">{p.name}</label>
-                </div>
+                <PokemonCard
+                    className="evo-item"
+                    imageUrl={p.sprites.front_default}
+                    name={p.name}
+                    information={p}
+                    key={p.id + p.name}
+                    setPokeinformation={props.setPokemon}
+                    isEvo={true}
+                ></PokemonCard>
             </React.Fragment>
         )
     }
