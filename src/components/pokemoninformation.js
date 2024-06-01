@@ -14,6 +14,7 @@ import EvolutionChain from "./evolutionchain";
 import DamageRelation from "./damagerelation";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { AiTwotoneSound } from "react-icons/ai";
+import SpiderStatGraph from "./spiderstatgraph/spiderstatgraph";
 
 const capitalize = s => {
   if (typeof s !== "string") return "";
@@ -130,6 +131,8 @@ const PokemonInformation = (props) => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { nameOrId } = useParams();
+  const statColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff'];
+
 
   useEffect(() => {
     console.log(nameOrId);
@@ -474,7 +477,6 @@ const PokemonInformation = (props) => {
                         </div>
 
                         <div className="wrap-special-stats-diagram">
-                          <div className="misc-info-wrapper wrap-upper-info fit-30">
                             <div className="misc-info-wrapper">
                               <div className="misc-info">
                                 {
@@ -500,10 +502,13 @@ const PokemonInformation = (props) => {
                                 }
                               </div>
                             </div>
-                          </div>
 
-                          <div className="special-skill-diagram">
-                          </div>
+                          {/* <div className="special-skill-wrapper">
+
+                            <div className="special-skill-diagram">
+                              <SpiderStatGraph data={initialInformation.stats}/>
+                            </div>
+                          </div> */}
 
                         </div>
 
@@ -519,7 +524,13 @@ const PokemonInformation = (props) => {
                         <div className="bolt" />
                       </div>
                       <div className="base-stat-wrapper">
-                        {initialInformation.stats.map(s => (<StatBar key={s.stat.name} stat={s} />))}
+                        {initialInformation.stats.map((s, i) => (<StatBar key={s.stat.name} color={statColors[i]} stat={s} />))}
+                      </div>
+
+                      <div className="special-skill-wrapper">
+                        <div className="special-skill-diagram">
+                          <SpiderStatGraph data={initialInformation.stats}/>
+                        </div>
                       </div>
 
 

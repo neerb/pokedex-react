@@ -97,9 +97,9 @@
 .wrap-upper-info {
   box-sizing: border-box;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  /* align-items: flex-end; */
+  align-items: center;
   flex-wrap: wrap;
   height: min-content;
   gap: 16px;
@@ -594,15 +594,66 @@
 
 .wrap-special-stats-diagram {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   gap: 12px;
 }
 
+.special-skill-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 50%;
+
+  background: linear-gradient(90deg,#88868b,#a7a2a6 10%,#a09b9f 50%,#8f8d93 75%,#625f60 90%,#4a4645);
+  border-radius: 4px;
+  border: 3px outset hsla(300,5%,79%,.75);
+  outline: 2px solid rgba(0,0,0,.5);
+  box-shadow: -2px 2px 1px rgba(0,0,0,.75), inset 0 0 4px #cbc6cb, 4px 4px 0 rgba(0,0,0,.75);
+  filter: drop-shadow(-2px 4px 0 rgba(0,0,0,.5));
+}
+
+.special-skill-wrapper::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  
+  background-image: url(./images/metal-texture.webp);
+}
+
+.special-skill-wrapper::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: -1;
+  background-image: url(./images/metalbg-texture.webp);
+}
+
 .special-skill-diagram {
   width: 100%;
-  background-color: #000;
-  height: 70%;
+  background-color: #0a2908;
+  height: fit-content;
+
+  background-image: linear-gradient(#ff906e33 2px, transparent 0), linear-gradient(90deg, #ff906e33 2px, transparent 0);
+  background-position: -10% -10%;
+  background-size: 2em 2em;
+  border: 4px inset #000;
+  color: #4af626;
+  letter-spacing: 2px;
+  text-shadow: 0 0 3px #4af626, 2px 2px 16px hsla(0,0%,100%,.5);
+  padding: 2px 7px;
+  border-radius: 4px;
 }
 
 
@@ -1079,7 +1130,9 @@
   width: min-content;
   height: min-content;
   justify-content: space-evenly;
-  padding: 4px;
+  padding: 6px 4px;
+  box-sizing: border-box;
+  margin: 0 auto;
 
   background: linear-gradient(90deg,#88868b,#a7a2a6 10%,#a09b9f 50%,#8f8d93 75%,#625f60 90%,#4a4645);
   border-radius: 4px;
