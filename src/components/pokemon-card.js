@@ -113,7 +113,9 @@ const PokemonCard = (props) => {
 
   return (
     <div onClick={UpdateClick}
-      className="pokemon-image-border">
+      className="pokemon-image-border"
+      style={props.isEvo ? { width: "20%" } : {}}
+    >
       <img
         className="pokemon-image"
         src={imageUrl}

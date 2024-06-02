@@ -39,6 +39,26 @@ const SpiderStatGraph = ({ data }) => {
     // Define colors for each attribute or data point
     const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff'];
 
+    // Draw webbing lines
+    const levels = 4; // Number of webbing levels
+    for (let level = 1; level <= levels; level++) {
+      ctx.beginPath();
+      const webRadius = (radius / levels) * level;
+      for (let i = 0; i <= numAttributes; i++) {
+        const angle = i * angleStep - Math.PI / 2;
+        const x = centerX + webRadius * Math.cos(angle);
+        const y = centerY + webRadius * Math.sin(angle);
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.closePath();
+      ctx.strokeStyle = '#bbb';
+      ctx.stroke();
+    }
+
     // Draw the axes
     ctx.beginPath();
     for (let i = 0; i < numAttributes; i++) {
@@ -63,7 +83,6 @@ const SpiderStatGraph = ({ data }) => {
       } else {
         ctx.lineTo(x, y);
       }
-      ctx.fillStyle = colors[i % colors.length]; // Cycle through colors for each data point
     }
     ctx.closePath();
     ctx.fillStyle = 'rgba(34, 202, 236, 0.2)'; // Set fill color for the polygon
@@ -71,12 +90,12 @@ const SpiderStatGraph = ({ data }) => {
     ctx.strokeStyle = 'rgba(34, 202, 236, 1)';
     ctx.stroke();
 
-    // Draw labels
+    // Draw colored dots
     for (let i = 0; i < numAttributes; i++) {
       const angle = i * angleStep - Math.PI / 2; // Adjust to start from the top
       const x = centerX + (radius + 10) * Math.cos(angle); // Increase the distance for better visibility
       const y = centerY + (radius + 10) * Math.sin(angle); // Increase the distance for better visibility
-    
+
       ctx.fillStyle = colors[i]; // Set color based on attribute value
       ctx.beginPath();
       ctx.arc(x, y, 4, 0, 2 * Math.PI); // Draw a small circle at the end of each attribute

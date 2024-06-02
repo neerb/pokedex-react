@@ -477,31 +477,31 @@ const PokemonInformation = (props) => {
                         </div>
 
                         <div className="wrap-special-stats-diagram">
-                            <div className="misc-info-wrapper">
-                              <div className="misc-info">
-                                {
-                                  information.shape ?
-                                    <>
-                                      <label>Posture: <span>{information.shape.name}</span></label>
-                                    </>
-                                    :
-                                    <></>
-                                }
-                              </div>
+                          <div className="misc-info-wrapper">
+                            <div className="misc-info">
+                              {
+                                information.shape ?
+                                  <>
+                                    <label>Posture: <span>{information.shape.name}</span></label>
+                                  </>
+                                  :
+                                  <></>
+                              }
                             </div>
+                          </div>
 
-                            <div className="misc-info-wrapper">
-                              <div className="misc-info">
-                                {
-                                  information.capture_rate ?
-                                    <>
-                                      <label>Capture Rate: <span>{information.capture_rate}</span></label>
-                                    </>
-                                    :
-                                    <></>
-                                }
-                              </div>
+                          <div className="misc-info-wrapper">
+                            <div className="misc-info">
+                              {
+                                information.capture_rate ?
+                                  <>
+                                    <label>Capture Rate: <span>{information.capture_rate}</span></label>
+                                  </>
+                                  :
+                                  <></>
+                              }
                             </div>
+                          </div>
 
                           {/* <div className="special-skill-wrapper">
 
@@ -529,7 +529,7 @@ const PokemonInformation = (props) => {
 
                       <div className="special-skill-wrapper">
                         <div className="special-skill-diagram">
-                          <SpiderStatGraph data={initialInformation.stats}/>
+                          <SpiderStatGraph data={initialInformation.stats} />
                         </div>
                       </div>
 
@@ -537,10 +537,16 @@ const PokemonInformation = (props) => {
 
                       {/* Abilities */}
                       {initialInformation.abilities && initialInformation.abilities.length > 0 ?
-                        (<div className="stats-label">
-                          <label className="stat-label">Abilities</label>
-                          <hr></hr>
-                        </div>)
+                        (
+                          <div className="stats-label">
+                            <div className="bolt" />
+                            <div className="title-grouping">
+                              <label className="stat-label">Abilities</label>
+                              <hr></hr>
+                            </div>
+                            <div className="bolt" />
+                          </div>
+                        )
                         :
                         (<></>)}
 
@@ -554,8 +560,12 @@ const PokemonInformation = (props) => {
                       {/* Habitat */}
                       {information.habitat ?
                         (<div className="stats-label">
-                          <label className="stat-label">Habitat</label>
-                          <hr></hr>
+                          <div className="bolt" />
+                          <div className="title-grouping">
+                            <label className="stat-label">Habitat</label>
+                            <hr></hr>
+                          </div>
+                          <div className="bolt" />
                         </div>) : (<></>)}
 
                       {information.habitat ?
@@ -578,8 +588,12 @@ const PokemonInformation = (props) => {
                         (
                           <React.Fragment>
                             <div className="stats-label">
-                              <label className="stat-label">Evolutions</label>
-                              <hr></hr>
+                              <div className="bolt" />
+                              <div className="title-grouping">
+                                <label className="stat-label">Evolutions</label>
+                                <hr></hr>
+                              </div>
+                              <div className="bolt" />
                             </div>
 
                             <div className="evolutions-wrapper">
@@ -590,9 +604,12 @@ const PokemonInformation = (props) => {
 
                       {/* Moves */}
                       <div className="stats-label">
-                        {/* <hr></hr> */}
-                        <label className="stat-label">Moves</label>
-                        <hr></hr>
+                        <div className="bolt" />
+                        <div className="title-grouping">
+                          <label className="stat-label">Moves</label>
+                          <hr></hr>
+                        </div>
+                        <div className="bolt" />
                       </div>
 
                       <div className="moves-wrapper">
@@ -604,9 +621,12 @@ const PokemonInformation = (props) => {
                         (
                           <React.Fragment>
                             <div className="stats-label">
-                              {/* <hr></hr> */}
-                              <label className="stat-label">Damage Relations</label>
-                              <hr></hr>
+                              <div className="bolt" />
+                              <div className="title-grouping">
+                                <label className="stat-label">Damage Relations</label>
+                                <hr></hr>
+                              </div>
+                              <div className="bolt" />
                             </div>
 
                             <div className="damage-info">
