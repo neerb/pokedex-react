@@ -235,18 +235,46 @@ const Pokedex = () => {
       filteredArray = [...pokemonDataList];
     }
 
+    // if (sortMethod === 'Lowest - Highest') {
+    //   filteredArray = filteredArray.sort((a, b) => a.id - b.id).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
+    // }
+    // else if (sortMethod === 'Highest - Lowest') {
+    //   filteredArray = filteredArray.sort((a, b) => b.id - a.id).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
+    // }
+    // else if (sortMethod === 'A - Z') {
+    //   filteredArray = filteredArray.sort((a, b) => a.name.localeCompare(b.name)).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
+    // }
+    // else if (sortMethod === 'Z - A') {
+    //   filteredArray = filteredArray.sort((a, b) => b.name.localeCompare(a.name)).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
+    // }
+
     if (sortMethod === 'Lowest - Highest') {
       filteredArray = filteredArray.sort((a, b) => a.id > b.id ? 1 : -1).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
     }
     else if (sortMethod === 'Highest - Lowest') {
-      filteredArray = filteredArray.sort((a, b) => a.id < b.id ? 1 : -1).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
+      filteredArray = filteredArray.sort((a, b) => a.id < b.id ? -1 : 1).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
     }
     else if (sortMethod === 'A - Z') {
       filteredArray = filteredArray.sort((a, b) => a.name > b.name ? 1 : -1).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
     }
     else if (sortMethod === 'Z - A') {
-      filteredArray = filteredArray.sort((a, b) => a.name < b.name ? 1 : -1).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
+      filteredArray = filteredArray.sort((a, b) => a.name < b.name ? -1 : 1).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
     }
+
+
+    // Correct code original!!!
+    // if (sortMethod === 'Lowest - Highest') {
+    //   filteredArray = filteredArray.sort((a, b) => a.id > b.id ? 1 : -1).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
+    // }
+    // else if (sortMethod === 'Highest - Lowest') {
+    //   filteredArray = filteredArray.sort((a, b) => a.id < b.id ? 1 : -1).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
+    // }
+    // else if (sortMethod === 'A - Z') {
+    //   filteredArray = filteredArray.sort((a, b) => a.name > b.name ? 1 : -1).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
+    // }
+    // else if (sortMethod === 'Z - A') {
+    //   filteredArray = filteredArray.sort((a, b) => a.name < b.name ? 1 : -1).filter(e => e.name.includes(searchValue) || e.id.toString().includes(searchValue));
+    // }
 
     // previousList = [...dataCopy];
     // dataCopy = dataCopy.filter(e => e.allInformation.types[0].type.name.includes("grass"));
